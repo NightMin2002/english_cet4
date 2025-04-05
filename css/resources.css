@@ -1,0 +1,343 @@
+/* --- Resource Page Specific Styles --- */
+
+/* Section Styling */
+.resource-section {
+	margin-bottom: 3em;
+	/* 默认分区底部边距 */
+}
+
+/* 调整分区之间的间距 */
+.resource-section+.resource-section {
+	margin-top: 4em;
+	/* 增大分区之间的垂直距离 */
+}
+
+.resource-section h2 {
+	font-size: 1.6em;
+	border-bottom: 2px solid var(--primary-blue);
+	/* 强调标题 */
+	padding-bottom: 0.5em;
+	margin-bottom: 1em;
+	/* 标题和下方内容的间距 */
+	color: var(--primary-blue);
+}
+
+.resource-section h2 .icon {
+	margin-right: 0.4em;
+	font-size: 1em;
+	/* 让图标和文字差不多大 */
+	vertical-align: middle;
+	/* 尝试垂直对齐 */
+}
+
+/* 分区介绍文字样式 */
+.section-intro {
+	color: var(--text-light);
+	font-size: 1em;
+	margin-top: -0.5em;
+	/* 调整使其更靠近标题下方 */
+	margin-bottom: 1.8em;
+	/* 和下面的卡片网格保持足够距离 */
+	max-width: 800px;
+	line-height: 1.6;
+}
+
+
+/* Resource Grid Layout */
+.resource-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	/* 响应式列 */
+	gap: 1.5em;
+	/* 网格间距 */
+}
+
+/* Resource Card Styling */
+.resource-card {
+	background-color: var(--background-white);
+	border-radius: 8px;
+	box-shadow: var(--card-shadow);
+	overflow: hidden;
+	/* 防止内容溢出圆角 */
+	display: flex;
+	/* 使用 Flexbox 垂直排列内容 */
+	flex-direction: column;
+	transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+	/* 包含背景色过渡 */
+	cursor: pointer;
+	/* 添加小手光标，提示可点击 */
+	outline: none;
+	/* 移除默认的 outline */
+}
+
+/* 为键盘用户添加清晰的焦点指示 */
+.resource-card:focus-visible {
+	outline: 3px solid var(--primary-blue);
+	outline-offset: 2px;
+	box-shadow: var(--card-hover-shadow);
+	/* 可以同时应用悬停阴影 */
+}
+
+
+.resource-card:hover {
+	transform: translateY(-5px);
+	box-shadow: var(--card-hover-shadow);
+}
+
+.resource-thumbnail {
+	display: block;
+	width: 100%;
+	height: 170px;
+	/* 固定缩略图高度 */
+	object-fit: cover;
+	/* 裁剪图片以适应 */
+	border-bottom: 1px solid var(--border-color);
+	/* 图片和内容间的细线 */
+	transition: border-color 0.3s ease;
+}
+
+.card-content {
+	padding: 1.2em;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	/* 让内容区占据剩余空间 */
+}
+
+.card-content h4 {
+	margin-top: 0;
+	margin-bottom: 0.6em;
+	font-size: 1.15em;
+	color: var(--link-color);
+	/* 使用链接颜色作为标题色 */
+	line-height: 1.3;
+}
+
+/* Resource Tags Styling */
+.resource-tags {
+	margin-bottom: 0.8em;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5em;
+	/* 标签间距 */
+}
+
+.tag {
+	display: inline-block;
+	font-size: 0.75em;
+	/* 标签字体小一点 */
+	padding: 0.2em 0.6em;
+	border-radius: 10px;
+	/* 圆角标签 */
+	background-color: var(--light-blue);
+	color: var(--primary-blue);
+	font-weight: 500;
+}
+
+/* Different tag colors (Examples) */
+.tag-beginner {
+	background-color: #e7f7e7;
+	color: #28a745;
+}
+
+.tag-intermediate {
+	background-color: #fff3cd;
+	color: #ffc107;
+}
+
+.tag-subtitle-cn {
+	background-color: #f8d7da;
+	color: #dc3545;
+}
+
+.tag-subtitle-bilingual {
+	background-color: #d1ecf1;
+	color: #0c5460;
+}
+
+.tag-practical,
+.tag-authentic {
+	background-color: var(--light-blue);
+	color: var(--primary-blue);
+}
+
+.tag-culture {
+	background-color: #e2d9f3;
+	color: #6f42c1;
+}
+
+.tag-repeat {
+	background-color: #f0e6ff;
+	color: #6610f2;
+}
+
+.tag-platform-ios,
+.tag-platform-android,
+.tag-platform-web {
+	background-color: #6c757d;
+	color: #ffffff;
+	font-weight: normal;
+	font-size: 0.7em;
+}
+
+
+/* Dark mode tag colors */
+html[data-theme='dark'] .tag {
+	background-color: #444;
+	color: #ccc;
+}
+
+html[data-theme='dark'] .tag-beginner {
+	background-color: #2a4a2a;
+	color: #8fbc8f;
+}
+
+html[data-theme='dark'] .tag-intermediate {
+	background-color: #594f2b;
+	color: #ffe082;
+}
+
+html[data-theme='dark'] .tag-subtitle-cn {
+	background-color: #582c2f;
+	color: #f5c6cb;
+}
+
+html[data-theme='dark'] .tag-subtitle-bilingual {
+	background-color: #2c4a53;
+	color: #bee5eb;
+}
+
+html[data-theme='dark'] .tag-culture {
+	background-color: #493e5d;
+	color: #d6bfff;
+}
+
+html[data-theme='dark'] .tag-repeat {
+	background-color: #492f7a;
+	color: #cab0ff;
+}
+
+html[data-theme='dark'] .tag-platform-ios,
+html[data-theme='dark'] .tag-platform-android,
+html[data-theme='dark'] .tag-platform-web {
+	background-color: #555;
+	color: #ddd;
+}
+
+
+.resource-description {
+	font-size: 0.9em;
+	color: var(--text-light);
+	line-height: 1.5;
+	margin-bottom: 1.2em;
+	flex-grow: 1;
+	/* 让描述占据多余空间 */
+}
+
+/* Placeholder Card Styling */
+.placeholder-card {
+	cursor: default;
+	border: 2px dashed var(--border-color);
+	box-shadow: none;
+	background-color: var(--background-light);
+	text-align: center;
+	justify-content: center;
+	/* Center content vertically if needed */
+	align-items: center;
+	/* Align items center */
+	transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.placeholder-card:hover {
+	transform: none;
+	box-shadow: none;
+}
+
+.placeholder-card:focus-visible {
+	outline: none;
+}
+
+.placeholder-card .resource-thumbnail {
+	opacity: 0.6;
+	border-bottom: none;
+}
+
+.placeholder-card .card-content {
+	align-items: center;
+	/* Center placeholder text */
+}
+
+.placeholder-card .card-content h4 {
+	color: var(--text-light);
+}
+
+
+/* APP Card Specific Adjustments */
+.app-card .resource-thumbnail.app-icon {
+	height: 100px;
+	width: 100px;
+	object-fit: contain;
+	margin: 1.2em auto 0.8em;
+	border-bottom: none;
+	border-radius: 20%;
+	border: 1px solid var(--border-color);
+}
+
+.app-card .card-content {
+	text-align: center;
+}
+
+.app-card .resource-tags {
+	justify-content: center;
+}
+
+/* Placeholder Icon Style */
+.placeholder-icon {
+	opacity: 0.5;
+}
+
+/* Single App Layout Adjustment (Optional - centers if only one app) */
+.resource-grid.single-app {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.resource-grid.single-app .resource-card {
+	max-width: 320px;
+	flex-basis: 300px;
+}
+
+.resource-grid .placeholder-card[style*="visibility: hidden"] {
+	border: none;
+	background: none;
+	box-shadow: none;
+	pointer-events: none;
+}
+
+
+/* Responsive Adjustments for Resource Page */
+@media (max-width: 600px) {
+	.resource-grid {
+		/* grid-template-columns: 1fr; */
+		gap: 1em;
+	}
+
+	.resource-card .card-content {
+		padding: 1em;
+	}
+
+	.resource-section h2 {
+		font-size: 1.4em;
+	}
+
+	.tag {
+		font-size: 0.7em;
+	}
+
+	.app-card .resource-thumbnail.app-icon {
+		height: 80px;
+		width: 80px;
+		margin-top: 1em;
+	}
+}

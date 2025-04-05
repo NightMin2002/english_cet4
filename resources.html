@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>学习资源中心 - 无障碍英语学习平台</title>
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/resources.css">
+		<script>
+			// IIFE (Immediately Invoked Function Expression) to avoid polluting global scope
+			(function() {
+				const themeKey = 'user_theme'; // Key for localStorage
+				const themeQuery = '(prefers-color-scheme: dark)'; // Media query to check system preference
+				const storedTheme = localStorage.getItem(themeKey); // Get saved theme from localStorage
+				const prefersDark = window.matchMedia(themeQuery).matches; // Check if system prefers dark
+				let currentTheme; // Variable to hold the theme to apply
+
+				// Determine the theme to apply based on saved preference and system setting
+				if (storedTheme && ['light', 'dark'].includes(storedTheme)) {
+					// If a valid theme ('light' or 'dark') is saved, use it
+					currentTheme = storedTheme;
+				} else if (storedTheme === 'system' || !storedTheme) {
+					// If preference is 'system' or no preference is saved, use system theme
+					currentTheme = prefersDark ? 'dark' : 'light';
+				} else {
+					// Fallback to 'light' theme if the saved value is corrupted or invalid
+					currentTheme = 'light';
+				}
+
+				// Apply the determined theme by setting the 'data-theme' attribute on the <html> element
+				// This happens BEFORE the body is rendered, minimizing theme flash
+				document.documentElement.setAttribute('data-theme', currentTheme);
+				// Optional: Log the initially set theme for debugging
+				// console.log(`Initial theme set in <head>: ${currentTheme}`);
+			})();
+		</script>
+	</head>
+	<body>
+		<div style="display: none;">
+			<svg xmlns="http://www.w3.org/2000/svg">
+				<!-- Gear Icon Symbol -->
+				<symbol id="icon-gear" viewBox="0 0 16 16">
+					<path
+						d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311a1.464 1.464 0 0 1-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.858 2.929 2.929 0 0 1 0 5.858z" />
+				</symbol>
+				<symbol id="icon-question" viewBox="0 0 16 16">
+					<path
+						d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247zm2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z" />
+				</symbol>
+				<symbol id="icon-arrow-left" viewBox="0 0 16 16">
+					<path fill-rule="evenodd"
+						d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+				</symbol>
+			</svg>
+		</div>
+
+		<header class="minimal-top-bar">
+			<div class="logo">
+				<a href="index.html" aria-label="返回首页">E-Learner</a>
+			</div>
+			<div class="dynamic-decorations" aria-hidden="true">
+				<!-- JS 会在这里添加 SVG 形状 -->
+			</div>
+			<div class="top-bar-icons">
+				<div style="position: relative;">
+					<button class="icon-button" id="settings-button" aria-label="打开设置菜单" aria-haspopup="true"
+						aria-expanded="false" title="设置">
+						<!-- 使用 SVG Sprite -->
+						<svg width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false">
+							<use xlink:href="#icon-gear"></use>
+						</svg>
+						<span class="visually-hidden">设置</span>
+					</button>
+					<ul class="settings-dropdown" id="settings-menu" role="menu" aria-labelledby="settings-button">
+						<li role="presentation"><a href="settings.html" role="menuitem">个人设置</a></li>
+					</ul>
+				</div>
+				<button class="icon-button" aria-label="帮助中心" title="帮助中心">
+					<!-- 使用 SVG Sprite -->
+					<svg width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false">
+						<use xlink:href="#icon-question"></use>
+					</svg>
+					<span class="visually-hidden">帮助</span>
+				</button>
+			</div>
+		</header>
+		<a href="index.html" class="fixed-back-button" aria-label="返回首页">
+			<!-- 使用 SVG Sprite 引用左箭头图标 -->
+			<svg width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false">
+				<use xlink:href="#icon-arrow-left"></use>
+			</svg>
+			<span class="visually-hidden">返回首页</span>
+		</a>
+
+		<main>
+			<nav aria-label="面包屑导航" class="breadcrumb-nav">
+				<a href="index.html">首页</a> > <span>学习资源</span>
+			</nav>
+
+			<h1 class="page-title">学习资源中心</h1>
+			<p class="page-intro">这里汇集了一些精心挑选的外部学习资源，助你拓展视野，提升技能。</p>
+
+			<!-- ******** 视频资源区 ******** -->
+			<section class="resource-section video-resources">
+				<h2><span class="icon">🎬</span> 推荐视频</h2>
+				<p class="section-intro">观看这些视频，练习听力、口语，了解文化背景。</p>
+				<div class="resource-grid">
+					<!-- 视频卡片 1 -->
+					<article class="resource-card" role="link" tabindex="0"
+						data-url="https://www.bilibili.com/video/BV1XY411J7aG/" aria-labelledby="resource-title-1">
+						<img src="https://via.placeholder.com/300x169/87CEFA/FFFFFF?text=Video+Thumbnail+1"
+							alt="视频封面：实用英语900句" class="resource-thumbnail">
+						<div class="card-content">
+							<h4 id="resource-title-1">超实用英语900句（看三遍就会）基础英语口语</h4>
+							<div class="resource-tags">
+								<span class="tag tag-beginner">基础</span>
+								<span class="tag tag-subtitle-cn">中文字幕</span>
+								<span class="tag tag-practical">实用口语</span>
+								<span class="tag tag-repeat">重复练习</span>
+							</div>
+							<p class="resource-description">适合零基础或想要巩固基础口语的学习者。内容重复性高，方便跟读和记忆。语速相对较慢。</p>
+						</div>
+					</article>
+					<!-- 视频卡片 2 -->
+					<article class="resource-card" role="link" tabindex="0"
+						data-url="https://www.bilibili.com/video/BV1vHfJYiEqA" aria-labelledby="resource-title-2">
+						<img src="https://via.placeholder.com/300x169/90EE90/FFFFFF?text=Video+Thumbnail+2"
+							alt="视频封面：瑞克和莫蒂片段" class="resource-thumbnail">
+						<div class="card-content">
+							<h4 id="resource-title-2">【瑞克和莫蒂】经典片段学习英语</h4>
+							<div class="resource-tags">
+								<span class="tag tag-intermediate">进阶</span>
+								<span class="tag tag-subtitle-bilingual">双语字幕</span>
+								<span class="tag tag-authentic">地道口语</span>
+								<span class="tag tag-culture">文化/梗</span>
+							</div>
+							<p class="resource-description">通过热门动画片段学习地道表达和俚语。语速较快，有双语字幕辅助理解。</p>
+						</div>
+					</article>
+					<!-- 占位符卡片 -->
+					<article class="resource-card placeholder-card">
+						<img src="https://via.placeholder.com/300x169/D3D3D3/FFFFFF?text=More+Videos" alt="更多视频敬请期待"
+							class="resource-thumbnail">
+						<div class="card-content">
+							<h4>更多精选视频</h4>
+							<p class="resource-description">我们正在努力搜集更多优质视频资源，敬请期待！</p>
+						</div>
+					</article>
+				</div>
+			</section>
+
+			<!-- ******** 网站与文章资源区 ******** -->
+			<section class="resource-section website-articles">
+				<h2><span class="icon">🌐</span> 推荐网站与文章</h2>
+				<p class="section-intro">浏览这些网站和文章，进行阅读练习，获取学习技巧和词汇资源。</p>
+				<div class="resource-grid">
+					<!-- 网站/文章卡片 1 -->
+					<article class="resource-card" role="link" tabindex="0"
+						data-url="https://www.bbc.co.uk/learningenglish" aria-labelledby="resource-title-3">
+						<img src="https://via.placeholder.com/300x169/FFD700/FFFFFF?text=BBC+Learning+English"
+							alt="BBC Learning English 网站截图示意" class="resource-thumbnail">
+						<div class="card-content">
+							<h4 id="resource-title-3">BBC Learning English</h4>
+							<div class="resource-tags">
+								<span class="tag tag-intermediate">进阶</span>
+								<span class="tag tag-authentic">地道内容</span>
+								<span class="tag tag-practical">综合技能</span>
+							</div>
+							<p class="resource-description">提供新闻、日常对话、语法讲解等多种形式的英语学习材料，内容权威且更新及时。</p>
+						</div>
+					</article>
+					<!-- 网站/文章卡片 2 -->
+					<article class="resource-card" role="link" tabindex="0" data-url="https://dictionary.cambridge.org/"
+						aria-labelledby="resource-title-4">
+						<img src="https://via.placeholder.com/300x169/ADD8E6/FFFFFF?text=Cambridge+Dictionary"
+							alt="剑桥词典网站截图示意" class="resource-thumbnail">
+						<div class="card-content">
+							<h4 id="resource-title-4">Cambridge Dictionary</h4>
+							<div class="resource-tags">
+								<span class="tag tag-beginner">基础</span>
+								<span class="tag tag-intermediate">进阶</span>
+								<span class="tag tag-practical">词汇查询</span>
+							</div>
+							<p class="resource-description">权威在线词典，提供详细的单词释义、例句、发音（英式/美式）和同义词等。</p>
+						</div>
+					</article>
+					<!-- 占位符卡片 -->
+					<article class="resource-card placeholder-card">
+						<img src="https://via.placeholder.com/300x169/E0E0E0/FFFFFF?text=More+Websites" alt="更多网站敬请期待"
+							class="resource-thumbnail">
+						<div class="card-content">
+							<h4>更多网站与阅读</h4>
+							<p class="resource-description">即将推出更多有价值的在线资源和文章推荐...</p>
+						</div>
+					</article>
+				</div>
+			</section>
+			<!-- ******** APP 推荐区 ******** -->
+			<section class="resource-section app-recommendations">
+				<h2><span class="icon">📱</span> 推荐学习 APP</h2>
+				<p class="section-intro">推荐一款优秀的 APP 作为网页系统学习的补充，利用碎片时间进行单词复习。**请注意：外部 APP 不包含手语解释。**</p>
+				<div class="resource-grid">
+					<!-- APP 卡片 1: 不背单词 -->
+					<article class="resource-card app-card" role="link" tabindex="0" data-url="https://www.bbdc.cn/"
+						aria-labelledby="resource-title-app-1"> <!-- 不背单词官网链接 -->
+						<img src="https://via.placeholder.com/100x100/4CAF50/FFFFFF?text=不背单词" alt="不背单词 APP 图标示意"
+							class="resource-thumbnail app-icon"> <!-- 替换为真实图标 URL 或保留占位符 -->
+						<div class="card-content">
+							<h4 id="resource-title-app-1">不背单词</h4>
+							<div class="resource-tags">
+								<span class="tag tag-practical">单词记忆</span>
+								<span class="tag tag-repeat">记忆曲线</span>
+								<span class="tag tag-authentic">真实语境</span>
+								<span class="tag tag-platform-ios">iOS</span> <span
+									class="tag tag-platform-android">Android</span>
+							</div>
+							<p class="resource-description">
+								基于艾宾浩斯记忆曲线，智能安排复习。提供大量真实语境例句（电影、美剧等）辅助理解和记忆。界面简洁易用。<br><strong>(注意: 无手语解释)</strong></p>
+						</div>
+					</article>
+
+					<!-- 占位符卡片 (保持不变或移除) -->
+					<!-- 如果你觉得只推荐一个APP，占位符卡片也可以移除 -->
+					<article class="resource-card placeholder-card">
+						<img src="https://via.placeholder.com/100x100/A8A878/FFFFFF?text=More+Tools" alt="更多工具敬请期待"
+							class="resource-thumbnail app-icon placeholder-icon">
+						<div class="card-content">
+							<h4>更多辅助工具</h4>
+							<p class="resource-description">我们会继续关注和推荐更多有助于学习的工具！</p>
+						</div>
+					</article>
+
+					<!-- 如果只推荐一个，可以再加一个占位符平衡布局 -->
+					<!-- <article class="resource-card placeholder-card" aria-hidden="true" style="visibility: hidden;"></article> -->
+
+				</div>
+			</section>
+
+		</main>
+
+		<script src="js/script.js" defer></script>
+	</body>
+</html>

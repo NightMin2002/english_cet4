@@ -1,0 +1,937 @@
+/* --- Basic Reset --- */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+}
+
+html {
+	background-color: var(--background-light);
+	/* transition: background-color 0.3s ease; */
+	/* 移除以减少闪烁 */
+}
+
+/* --- End Reset --- */
+
+/* --- 全局样式与变量 --- */
+:root {
+	/* --- Light Theme Defaults --- */
+	--primary-blue: #0056b3;
+	--light-blue: #e7f1ff;
+	--text-dark: #212529;
+	--text-light: #6c757d;
+	--background-light: #f8f9fa;
+	--background-white: #ffffff;
+	--border-color: #dee2e6;
+	--card-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+	--card-hover-shadow: 0 8px 15px rgba(0, 86, 179, 0.1);
+	--link-color: var(--primary-blue);
+	--top-bar-bg: var(--background-white);
+	--top-bar-border: var(--border-color);
+	--top-bar-icon-color: var(--text-light);
+	--top-bar-icon-hover-color: var(--primary-blue);
+	--chapter-block-border: var(--primary-blue);
+	/* For courses page */
+	--chapter-link-bg: var(--light-blue);
+	/* For courses page */
+	--chapter-link-text: var(--primary-blue);
+	/* For courses page */
+	--chapter-link-hover-bg: var(--primary-blue);
+	/* For courses page */
+	--chapter-link-hover-text: var(--background-white);
+	/* For courses page */
+	--module-bg: var(--background-white);
+	/* For homepage modules */
+	--module-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+	/* For homepage modules */
+	--button-bg: var(--primary-blue);
+	/* General buttons */
+	--button-text: var(--background-white);
+	/* General buttons */
+	--button-hover-bg: #004085;
+	/* General buttons */
+	--input-bg: var(--background-white);
+	/* Form inputs (future) */
+	--input-border: var(--border-color);
+	/* Form inputs (future) */
+	--input-text: var(--text-dark);
+	/* Form inputs (future) */
+	--dropdown-bg: var(--background-white);
+	/* Settings dropdown */
+	--dropdown-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	/* Settings dropdown */
+	--dropdown-link-hover-bg: var(--light-blue);
+	/* Settings dropdown */
+	--subtitle-font-size: 1em;
+	/* Global setting */
+	--global-font-scale: 1;
+	/* Global setting */
+	--top-bar-height: 60px;
+	/* Top bar height */
+}
+
+/* --- Apply Dark Theme Variables --- */
+html[data-theme='dark'] {
+	--primary-blue: #5dade2;
+	--light-blue: #2c3e50;
+	--text-dark: #e9ecef;
+	--text-light: #adb5bd;
+	--background-light: #1a1a1a;
+	--background-white: #2b2b2b;
+	--border-color: #495057;
+	--card-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+	--card-hover-shadow: 0 8px 15px rgba(93, 173, 226, 0.2);
+	--link-color: var(--primary-blue);
+	--top-bar-bg: #212121;
+	--top-bar-border: #333;
+	--top-bar-icon-color: var(--text-light);
+	--top-bar-icon-hover-color: var(--primary-blue);
+	--chapter-block-border: var(--primary-blue);
+	--chapter-link-bg: #34495e;
+	--chapter-link-text: var(--text-dark);
+	--chapter-link-hover-bg: var(--primary-blue);
+	--chapter-link-hover-text: #111;
+	--module-bg: var(--background-white);
+	--module-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+	--button-bg: var(--primary-blue);
+	--button-text: #111;
+	--button-hover-bg: #85c1e9;
+	--input-bg: #333;
+	--input-border: #555;
+	--input-text: var(--text-dark);
+	--dropdown-bg: #333;
+	--dropdown-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+	--dropdown-link-hover-bg: #444;
+	/* subtitle-font-size and global-font-scale use defaults */
+	--top-bar-height: 60px;
+}
+
+/* --- Apply Light Theme Variables (Explicitly for JS toggle) --- */
+html[data-theme='light'] {
+	/* Re-declare light theme variables for explicit JS toggle */
+	--primary-blue: #0056b3;
+	--light-blue: #e7f1ff;
+	--text-dark: #212529;
+	--text-light: #6c757d;
+	--background-light: #f8f9fa;
+	--background-white: #ffffff;
+	--border-color: #dee2e6;
+	--card-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+	--card-hover-shadow: 0 8px 15px rgba(0, 86, 179, 0.1);
+	--link-color: var(--primary-blue);
+	--top-bar-bg: var(--background-white);
+	--top-bar-border: var(--border-color);
+	--top-bar-icon-color: var(--text-light);
+	--top-bar-icon-hover-color: var(--primary-blue);
+	--chapter-block-border: var(--primary-blue);
+	--chapter-link-bg: var(--light-blue);
+	--chapter-link-text: var(--primary-blue);
+	--chapter-link-hover-bg: var(--primary-blue);
+	--chapter-link-hover-text: var(--background-white);
+	--module-bg: var(--background-white);
+	--module-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+	--button-bg: var(--primary-blue);
+	--button-text: var(--background-white);
+	--button-hover-bg: #004085;
+	--input-bg: var(--background-white);
+	--input-border: var(--border-color);
+	--input-text: var(--text-dark);
+	--dropdown-bg: var(--background-white);
+	--dropdown-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	--dropdown-link-hover-bg: var(--light-blue);
+	--subtitle-font-size: 1em;
+	--global-font-scale: 1;
+	--top-bar-height: 60px;
+}
+
+/* Apply system preference (dark) if no explicit theme is set by JS */
+@media (prefers-color-scheme: dark) {
+	html:not([data-theme='light']):not([data-theme='dark']) {
+		/* Apply dark vars if no theme override */
+		--primary-blue: #5dade2;
+		--light-blue: #2c3e50;
+		--text-dark: #e9ecef;
+		--text-light: #adb5bd;
+		--background-light: #1a1a1a;
+		--background-white: #2b2b2b;
+		--border-color: #495057;
+		/* ... (rest of dark vars) ... */
+		--card-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+		--card-hover-shadow: 0 8px 15px rgba(93, 173, 226, 0.2);
+		--link-color: var(--primary-blue);
+		--top-bar-bg: #212121;
+		--top-bar-border: #333;
+		--top-bar-icon-color: var(--text-light);
+		--top-bar-icon-hover-color: var(--primary-blue);
+		--chapter-block-border: var(--primary-blue);
+		--chapter-link-bg: #34495e;
+		--chapter-link-text: var(--text-dark);
+		--chapter-link-hover-bg: var(--primary-blue);
+		--chapter-link-hover-text: #111;
+		--module-bg: var(--background-white);
+		--module-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+		--button-bg: var(--primary-blue);
+		--button-text: #111;
+		--button-hover-bg: #85c1e9;
+		--input-bg: #333;
+		--input-border: #555;
+		--input-text: var(--text-dark);
+		--dropdown-bg: #333;
+		--dropdown-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+		--dropdown-link-hover-bg: #444;
+		--subtitle-font-size: 1em;
+		--global-font-scale: 1;
+		--top-bar-height: 60px;
+	}
+}
+
+
+body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	line-height: 1.6;
+	background-color: var(--background-light);
+	/* Body background color */
+	color: var(--text-dark);
+	font-size: calc(1rem * var(--global-font-scale));
+	/* Only transition font-size */
+	transition: font-size 0.2s ease;
+}
+
+/* --- Minimal Top Fixed Nav Bar --- */
+.minimal-top-bar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: var(--top-bar-height);
+	background-color: var(--top-bar-bg);
+	border-bottom: 1px solid var(--top-bar-border);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 1.5em;
+	box-sizing: border-box;
+	z-index: 1000;
+	transition: background-color 0.3s ease, border-bottom-color 0.3s ease;
+	overflow: hidden;
+}
+
+/* Ensure content stays above decoration */
+.minimal-top-bar .logo,
+.minimal-top-bar .top-bar-icons {
+	position: relative;
+	z-index: 2;
+}
+
+.logo a {
+	text-decoration: none;
+	color: var(--link-color);
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+.top-bar-icons {
+	display: flex;
+	align-items: center;
+}
+
+.top-bar-icons>div {
+	/* Wrapper for dropdown */
+	position: relative;
+	margin-left: 0.5em;
+}
+
+.top-bar-icons button.icon-button {
+	background: none;
+	border: none;
+	color: var(--top-bar-icon-color);
+	font-size: 1.4em;
+	padding: 0.4em 0.6em;
+	cursor: pointer;
+	border-radius: 4px;
+	line-height: 1;
+	vertical-align: middle;
+	transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.top-bar-icons button.icon-button:hover,
+.top-bar-icons button.icon-button:focus {
+	color: var(--top-bar-icon-hover-color);
+	background-color: rgba(0, 86, 179, 0.1);
+	outline: none;
+}
+
+html[data-theme='dark'] .top-bar-icons button.icon-button:hover,
+html[data-theme='dark'] .top-bar-icons button.icon-button:focus {
+	background-color: rgba(93, 173, 226, 0.15);
+}
+
+/* Settings Dropdown Menu Styles */
+.settings-dropdown {
+	position: fixed;
+	top: calc(var(--top-bar-height) + 0.5em);
+	right: 1.5em;
+	background-color: var(--dropdown-bg);
+	border-radius: 6px;
+	box-shadow: var(--dropdown-shadow);
+	min-width: 160px;
+	z-index: 1001;
+	list-style: none;
+	padding: 0.5em 0;
+	margin: 0;
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(-10px);
+	transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease, background-color 0.3s ease;
+}
+
+.settings-dropdown.active {
+	opacity: 1;
+	visibility: visible;
+	transform: translateY(0);
+}
+
+.settings-dropdown li a {
+	display: block;
+	padding: 0.7em 1.2em;
+	color: var(--text-dark);
+	text-decoration: none;
+	font-size: 0.95em;
+	white-space: nowrap;
+	transition: background-color 0.2s ease, color 0.3s ease;
+}
+
+.settings-dropdown li a:hover,
+.settings-dropdown li a:focus {
+	background-color: var(--dropdown-link-hover-bg);
+	color: var(--text-dark);
+	text-decoration: none;
+	outline: none;
+}
+
+/* --- Dynamic Decorations Styles (For Top Bar Background) --- */
+.dynamic-decorations {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	pointer-events: none;
+	z-index: 0;
+}
+
+.deco-shape {
+	position: absolute;
+	opacity: 0.1;
+	background-color: var(--primary-blue);
+	transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s ease;
+	pointer-events: none;
+	border-radius: 50%;
+}
+
+html[data-theme='dark'] .deco-shape {
+	background-color: var(--light-blue);
+	opacity: 0.12;
+}
+
+.deco-shape.square {
+	border-radius: 0;
+	opacity: 0.08;
+}
+
+html[data-theme='dark'] .deco-shape.square {
+	opacity: 0.1;
+}
+
+.deco-shape.triangle {
+	background-color: var(--primary-blue);
+	opacity: 0.12;
+	border-radius: 0;
+	clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+html[data-theme='dark'] .deco-shape.triangle {
+	background-color: var(--primary-blue);
+	opacity: 0.15;
+}
+
+/* --- Main Content Common Styles --- */
+main {
+	max-width: 1100px;
+	margin-left: auto;
+	margin-right: auto;
+	/* Use variable for top margin */
+	margin-top: calc(var(--top-bar-height) + 1.5em);
+	margin-bottom: 2em;
+	padding: 0 1.5em;
+	box-sizing: border-box;
+}
+
+h1,
+h2,
+h3 {
+	color: var(--link-color);
+}
+
+h2 {
+	/* General section headings */
+	border-bottom: 1px solid var(--border-color);
+	padding-bottom: 0.5em;
+	margin-bottom: 1em;
+	transition: border-color 0.3s ease;
+}
+
+a {
+	color: var(--link-color);
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+/* --- Breadcrumb Navigation Styles (Global) --- */
+nav.breadcrumb-nav {
+	font-size: 0.9em;
+	margin-bottom: 1.5em;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 0.4em;
+}
+
+nav.breadcrumb-nav a,
+nav.breadcrumb-nav span {
+	/* Bubble styles */
+	display: inline-block;
+	padding: 0.3em 0.8em;
+	border-radius: 15px;
+	text-decoration: none;
+	line-height: 1.4;
+	transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+nav.breadcrumb-nav a {
+	background-color: #d1e7fd;
+	color: #0a58ca;
+}
+
+nav.breadcrumb-nav a:hover,
+nav.breadcrumb-nav a:focus {
+	background-color: var(--primary-blue);
+	color: var(--button-text);
+	text-decoration: none;
+	outline: none;
+}
+
+nav.breadcrumb-nav span {
+	background-color: #e9ecef;
+	color: var(--text-dark);
+	font-weight: bold;
+	cursor: default;
+}
+
+html[data-theme='dark'] nav.breadcrumb-nav a {
+	background-color: #34495e;
+	color: var(--primary-blue);
+}
+
+html[data-theme='dark'] nav.breadcrumb-nav a:hover,
+html[data-theme='dark'] nav.breadcrumb-nav a:focus {
+	background-color: var(--primary-blue);
+	color: #111;
+}
+
+html[data-theme='dark'] nav.breadcrumb-nav span {
+	background-color: var(--primary-blue);
+	color: #111;
+}
+
+@media (max-width: 480px) {
+
+	/* Responsive breadcrumbs */
+	nav.breadcrumb-nav {
+		gap: 0.6em;
+		font-size: 0.85em;
+	}
+
+	nav.breadcrumb-nav a,
+	nav.breadcrumb-nav span {
+		padding: 0.25em 0.7em;
+	}
+}
+
+
+/* --- Homepage Specific Styles --- */
+.page-title {
+	text-align: center;
+	margin-bottom: 1em;
+}
+
+/* Used on multiple pages, keep global? */
+.page-intro {
+	text-align: center;
+	color: var(--text-light);
+	margin-bottom: 2.5em;
+	font-size: 1.1em;
+}
+
+/* Used on multiple pages, keep global? */
+.hub-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 1.5em;
+	margin-bottom: 3em;
+}
+
+.hub-card {
+	display: block;
+	background-color: var(--background-white);
+	border-radius: 8px;
+	padding: 1.5em;
+	text-align: center;
+	box-shadow: var(--card-shadow);
+	transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.3s ease;
+	color: var(--text-dark);
+	text-decoration: none;
+}
+
+.hub-card:hover,
+.hub-card:focus {
+	transform: translateY(-5px);
+	box-shadow: var(--card-hover-shadow);
+	outline: none;
+	text-decoration: none;
+}
+
+.hub-card .icon {
+	font-size: 2.5em;
+	color: var(--link-color);
+	margin-bottom: 0.5em;
+	display: block;
+}
+
+.hub-card h3 {
+	margin-top: 0;
+	margin-bottom: 0.5em;
+	font-size: 1.2em;
+	color: var(--link-color);
+}
+
+.hub-card p {
+	color: var(--text-light);
+	font-size: 0.9em;
+	line-height: 1.5;
+}
+
+.info-modules {
+	display: flex;
+	gap: 1.5em;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin-bottom: 2em;
+}
+
+.module {
+	background-color: var(--module-bg);
+	padding: 1em 1.5em;
+	border-radius: 6px;
+	box-shadow: var(--module-shadow);
+	min-width: 200px;
+	text-align: center;
+	transition: background-color 0.3s ease;
+}
+
+.module h4 {
+	margin-top: 0;
+	margin-bottom: 0.5em;
+	color: var(--link-color);
+	font-size: 1em;
+}
+
+.module p {
+	margin: 0;
+	color: var(--text-dark);
+}
+
+/* --- Courses Page Specific Styles --- */
+.learning-path {}
+
+.chapter-block {
+	background-color: var(--background-white);
+	border-radius: 8px;
+	margin-bottom: 2em;
+	padding: 1.5em 2em;
+	box-shadow: var(--card-shadow);
+	border-left: 5px solid var(--chapter-block-border);
+	position: relative;
+	transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.chapter-block::before {
+	content: '🎓';
+	position: absolute;
+	left: -15px;
+	top: 1.5em;
+	font-size: 1.5em;
+	background-color: var(--background-light);
+	padding: 0 5px;
+	color: var(--chapter-block-border);
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.chapter-block h2 {
+	margin-top: 0;
+	margin-bottom: 1em;
+	padding-bottom: 0.5em;
+}
+
+.chapter-block ul {
+	list-style: none;
+	padding-left: 0;
+	margin: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	gap: 1em;
+}
+
+.chapter-block li a {
+	display: block;
+	padding: 0.8em 1em;
+	background-color: var(--chapter-link-bg);
+	border-radius: 5px;
+	color: var(--chapter-link-text);
+	text-decoration: none;
+	font-weight: 500;
+	transition: background-color 0.2s ease, color 0.2s ease;
+	text-align: center;
+	border: 1px solid transparent;
+}
+
+.chapter-block li a:hover,
+.chapter-block li a:focus {
+	background-color: var(--chapter-link-hover-bg);
+	color: var(--chapter-link-hover-text);
+	text-decoration: none;
+	outline: none;
+	border: 1px solid var(--chapter-link-hover-bg);
+}
+
+/* --- Settings Page Specific Styles --- */
+.settings-section {
+	background-color: var(--background-white);
+	border-radius: 8px;
+	padding: 1.5em 2em;
+	margin-bottom: 2em;
+	box-shadow: var(--card-shadow);
+	transition: background-color 0.3s ease;
+}
+
+.settings-section h2 {
+	margin-top: 0;
+	margin-bottom: 1em;
+	font-size: 1.3em;
+	border-bottom: none;
+}
+
+.setting-item {
+	margin-bottom: 1.5em;
+	padding-bottom: 1em;
+	border-bottom: 1px solid var(--border-color);
+	transition: border-color 0.3s ease;
+}
+
+.setting-item:last-child {
+	margin-bottom: 0;
+	padding-bottom: 0;
+	border-bottom: none;
+}
+
+.setting-item label {
+	display: block;
+	font-weight: bold;
+	margin-bottom: 0.5em;
+	color: var(--text-dark);
+}
+
+.setting-item p.description {
+	font-size: 0.9em;
+	color: var(--text-light);
+	margin-top: 0.3em;
+	margin-bottom: 0.8em;
+}
+
+.radio-group label {
+	display: inline-block;
+	margin-right: 1.5em;
+	font-weight: normal;
+	cursor: pointer;
+	color: var(--text-dark);
+	transition: color 0.3s ease;
+}
+
+.radio-group input[type="radio"] {
+	margin-right: 0.5em;
+	vertical-align: middle;
+	accent-color: var(--primary-blue);
+}
+
+.setting-item select,
+.setting-item input[type="text"],
+.setting-item input[type="number"] {
+	padding: 0.5em 0.8em;
+	border: 1px solid var(--input-border);
+	background-color: var(--input-bg);
+	color: var(--input-text);
+	border-radius: 4px;
+	width: 100%;
+	max-width: 300px;
+	box-sizing: border-box;
+	transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.placeholder-notice {
+	font-style: italic;
+	color: var(--text-light);
+	background-color: var(--background-light);
+	padding: 0.5em 1em;
+	border-radius: 4px;
+	border: 1px dashed var(--border-color);
+	display: inline-block;
+	margin-top: 0.5em;
+	transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+button.setting-button {
+	display: inline-block;
+	background-color: var(--button-bg);
+	color: var(--button-text);
+	padding: 0.6em 1.2em;
+	text-decoration: none;
+	border-radius: 4px;
+	border: none;
+	cursor: pointer;
+	font-size: 1em;
+	text-align: center;
+	transition: background-color 0.2s ease, color 0.3s ease;
+}
+
+button.setting-button:hover,
+button.setting-button:focus {
+	background-color: var(--button-hover-bg);
+	outline: none;
+}
+
+.subtitle-preview {
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	padding: 1em;
+	margin-top: 1em;
+	border-radius: 4px;
+	font-size: var(--subtitle-font-size);
+	line-height: 1.4;
+	text-align: center;
+	transition: font-size 0.2s ease;
+	max-width: 90%;
+	overflow-wrap: break-word;
+}
+
+html[data-theme='dark'] .subtitle-preview {
+	background-color: rgba(20, 20, 20, 0.8);
+	color: #eee;
+}
+
+.button-group {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.8em;
+}
+
+button.font-size-button {
+	padding: 0.5em 1em;
+	border: 1px solid var(--border-color);
+	background-color: var(--background-white);
+	color: var(--text-dark);
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 0.9em;
+	transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+button.font-size-button:hover {
+	background-color: var(--light-blue);
+	border-color: var(--primary-blue);
+}
+
+html[data-theme='dark'] button.font-size-button:hover {
+	background-color: #34495e;
+	border-color: var(--primary-blue);
+}
+
+button.font-size-button.active {
+	background-color: var(--primary-blue);
+	color: var(--button-text);
+	border-color: var(--primary-blue);
+	font-weight: bold;
+}
+
+html[data-theme='dark'] button.font-size-button.active {
+	color: #111;
+}
+
+/* --- Fixed Back Button Styles (Global Component) --- */
+.fixed-back-button {
+	position: fixed;
+	top: calc(var(--top-bar-height) + 1em);
+	left: 1.5em;
+	z-index: 999;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	background-color: var(--background-white);
+	color: var(--primary-blue);
+	border: 1px solid var(--border-color);
+	border-radius: 50%;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	text-decoration: none;
+	font-size: 1.2em;
+	line-height: 1;
+	transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fixed-back-button:hover,
+.fixed-back-button:focus {
+	background-color: var(--primary-blue);
+	color: var(--button-text);
+	border-color: var(--primary-blue);
+	transform: scale(1.05);
+	box-shadow: 0 4px 8px rgba(0, 86, 179, 0.2);
+	outline: none;
+}
+
+html[data-theme='dark'] .fixed-back-button {
+	background-color: var(--background-white);
+	color: var(--primary-blue);
+	border-color: var(--border-color);
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+html[data-theme='dark'] .fixed-back-button:hover,
+html[data-theme='dark'] .fixed-back-button:focus {
+	background-color: var(--primary-blue);
+	color: #111;
+	border-color: var(--primary-blue);
+}
+
+/* --- Visually Hidden Class (Accessibility) --- */
+.visually-hidden {
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+/* --- General Button Style (Example) --- */
+.button {
+	display: inline-block;
+	background-color: var(--button-bg);
+	color: var(--button-text);
+	padding: 0.6em 1.2em;
+	text-decoration: none;
+	border-radius: 4px;
+	border: none;
+	cursor: pointer;
+	font-size: 1em;
+	text-align: center;
+	transition: background-color 0.2s ease;
+}
+
+.button:hover,
+.button:focus {
+	background-color: var(--button-hover-bg);
+	outline: none;
+}
+
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+	body {
+		font-size: calc(0.9375rem * var(--global-font-scale));
+	}
+
+	.minimal-top-bar {
+		top: calc(var(--top-bar-height) + 0.5em);
+		height: var(--top-bar-height);
+		padding: 0 1em;
+		right: 1em;
+		min-width: 140px;
+	}
+
+	.logo a {
+		font-size: 1.3em;
+	}
+
+	main {
+		margin-top: calc(var(--top-bar-height) + 1em);
+		margin-bottom: 1.5em;
+		padding: 0 1em;
+	}
+
+	.hub-container {
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 1em;
+	}
+
+	.chapter-block {
+		padding: 1em 1.5em;
+		border-left-width: 4px;
+	}
+
+	.chapter-block::before {
+		left: -12px;
+		font-size: 1.3em;
+	}
+
+	.chapter-block ul {
+		grid-template-columns: 1fr;
+		gap: 0.8em;
+	}
+
+	.settings-section {
+		padding: 1em 1.5em;
+	}
+
+	.settings-dropdown {
+		min-width: 140px;
+	}
+
+	.radio-group label {
+		margin-right: 1em;
+	}
+
+	.fixed-back-button {
+		top: calc(var(--top-bar-height) + 0.8em);
+		left: 1em;
+		width: 36px;
+		height: 36px;
+		font-size: 1.1em;
+	}
+}
+
+/* --- Vocab Page Specific Styles --- (Should be in vocab.css) --- */
+/* .word-list-container, .word-entry, .word-visuals, etc. were here but moved */
+
+/* --- Resource Page Specific Styles --- (Should be in resources.css) --- */
+/* .resource-section, .resource-grid, .resource-card, etc. were here but moved */

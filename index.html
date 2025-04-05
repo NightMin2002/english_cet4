@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>无障碍英语学习平台 - 首页</title>
+		<link rel="stylesheet" href="css/style.css">
+		<script>
+			// IIFE (Immediately Invoked Function Expression) to avoid polluting global scope
+			(function() {
+				const themeKey = 'user_theme';
+				const themeQuery = '(prefers-color-scheme: dark)';
+				const storedTheme = localStorage.getItem(themeKey);
+				const prefersDark = window.matchMedia(themeQuery).matches;
+				let currentTheme;
+
+				if (storedTheme && ['light', 'dark'].includes(storedTheme)) {
+					currentTheme = storedTheme;
+				} else if (storedTheme === 'system' || !storedTheme) {
+					currentTheme = prefersDark ? 'dark' : 'light'; // Determine based on system if 'system' or no setting
+				} else {
+					currentTheme = 'light'; // Fallback to light if localStorage value is corrupted
+				}
+
+				// Directly set the data-theme attribute on <html> BEFORE the body renders
+				document.documentElement.setAttribute('data-theme', currentTheme);
+				console.log(`Initial theme set in <head>: ${currentTheme}`); // Optional: for debugging
+			})();
+		</script>
+	</head>
+	<body>
+		<div style="display: none;">
+			<svg xmlns="http://www.w3.org/2000/svg">
+				<!-- Gear Icon Symbol -->
+				<symbol id="icon-gear" viewBox="0 0 16 16">
+					<path
+						d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311a1.464 1.464 0 0 1-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.858 2.929 2.929 0 0 1 0 5.858z" />
+				</symbol>
+				<symbol id="icon-question" viewBox="0 0 16 16">
+					<path
+						d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247zm2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z" />
+				</symbol>
+				<symbol id="icon-arrow-left" viewBox="0 0 16 16">
+					<path fill-rule="evenodd"
+						d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+				</symbol>
+			</svg>
+		</div>
+		<header class="minimal-top-bar">
+			<div class="logo">
+				<a href="index.html" aria-label="返回首页">E-Learner</a>
+			</div>
+			<div class="dynamic-decorations" aria-hidden="true">
+				<!-- JS 会在这里添加 SVG 形状 -->
+			</div>
+			<div class="top-bar-icons">
+				<div style="position: relative;">
+					<button class="icon-button" id="settings-button" aria-label="打开设置菜单" aria-haspopup="true"
+						aria-expanded="false" title="设置">
+						<svg width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false">
+							<use xlink:href="#icon-gear"></use>
+						</svg>
+						<span class="visually-hidden">设置</span>
+					</button>
+				</div>
+				<button class="icon-button" aria-label="帮助中心" title="帮助中心">
+					<svg width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false">
+						<use xlink:href="#icon-question"></use>
+					</svg>
+					<span class="visually-hidden">帮助</span>
+				</button>
+			</div>
+		</header>
+
+		<ul class="settings-dropdown" id="settings-menu" role="menu" aria-labelledby="settings-button">
+			<li role="presentation"><a href="settings.html" role="menuitem">个人设置</a></li>
+		</ul>
+
+		<main>
+			<!-- ... 页面主体内容不变 ... -->
+			<h1 class="page-title">欢迎来到无障碍英语学习平台</h1>
+			<p class="page-intro">专为聋人朋友打造，结合手语、视觉辅助，开启你的四级英语之旅！</p>
+
+			<div class="info-modules">
+				<div class="module daily-sign">
+					<h4>今日手语单词</h4>
+					<p><strong>Word:</strong> "Study"</p>
+					<p><a href="#">观看手语视频 »</a></p>
+				</div>
+				<div class="module quick-start">
+					<h4>快速开始</h4>
+					<p>上次学到: 第二章 语法点</p>
+					<p><a href="courses.html#chapter2">继续学习 »</a></p>
+				</div>
+			</div>
+
+			<div class="hub-container">
+				<a href="courses.html" class="hub-card">
+					<span class="icon">📚</span>
+					<h3>课程学习</h3>
+					<p>系统学习四级英语章节，包含手语视频、词汇和练习。</p>
+				</a>
+				<a href="#dictionary" class="hub-card">
+					<span class="icon">📖</span>
+					<h3>手语词典</h3>
+					<p>查询英语单词的手语表达，支持视频和文字解释。</p>
+				</a>
+				<a href="#community" class="hub-card">
+					<span class="icon">🤝</span>
+					<h3>学习社区</h3>
+					<p>与其他学习者交流，分享经验，参与手语视频讨论。</p>
+				</a>
+				<a href="settings.html" class="hub-card">
+					<span class="icon">⚙️</span>
+					<h3>个人设置</h3>
+					<p>调整主题、字幕、字体大小等个性化和无障碍选项。</p>
+				</a>
+				<a href="#practice" class="hub-card">
+					<span class="icon">✍️</span>
+					<h3>互动练习</h3>
+					<p>通过拖拽、手语识别等方式巩固所学知识。</p>
+				</a>
+				<a href="resources.html" class="hub-card"> <!-- 链接已确认 -->
+					<span class="icon">💡</span>
+					<h3>学习资源</h3>
+					<p>查找文化背景、学习技巧等辅助材料。</p>
+				</a>
+			</div>
+		</main>
+
+		<script src="js/script.js" defer></script>
+	</body>
+</html>

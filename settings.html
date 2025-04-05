@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>个人设置 - 无障碍英语学习平台</title>
+		<link rel="stylesheet" href="css/style.css">
+		<script>
+			// IIFE (Immediately Invoked Function Expression) to avoid polluting global scope
+			(function() {
+				const themeKey = 'user_theme';
+				const themeQuery = '(prefers-color-scheme: dark)';
+				const storedTheme = localStorage.getItem(themeKey);
+				const prefersDark = window.matchMedia(themeQuery).matches;
+				let currentTheme;
+
+				if (storedTheme && ['light', 'dark'].includes(storedTheme)) {
+					currentTheme = storedTheme;
+				} else if (storedTheme === 'system' || !storedTheme) {
+					currentTheme = prefersDark ? 'dark' : 'light'; // Determine based on system if 'system' or no setting
+				} else {
+					currentTheme = 'light'; // Fallback to light if localStorage value is corrupted
+				}
+
+				// Directly set the data-theme attribute on <html> BEFORE the body renders
+				document.documentElement.setAttribute('data-theme', currentTheme);
+				console.log(`Initial theme set in <head>: ${currentTheme}`); // Optional: for debugging
+			})();
+		</script>
+	</head>
+	<body>
+		<div style="display: none;">
+			<svg xmlns="http://www.w3.org/2000/svg">
+				<!-- Gear Icon Symbol -->
+				<symbol id="icon-gear" viewBox="0 0 16 16">
+					<path
+						d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311a1.464 1.464 0 0 1-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.858 2.929 2.929 0 0 1 0 5.858z" />
+				</symbol>
+				<symbol id="icon-question" viewBox="0 0 16 16">
+					<path
+						d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247zm2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z" />
+				</symbol>
+				<symbol id="icon-arrow-left" viewBox="0 0 16 16">
+					<path fill-rule="evenodd"
+						d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+				</symbol>
+			</svg>
+		</div>
+		<header class="minimal-top-bar">
+			<div class="logo">
+				<a href="index.html" aria-label="返回首页">E-Learner</a>
+			</div>
+			<div class="dynamic-decorations" aria-hidden="true">
+				<!-- JS 会在这里添加 SVG 形状 -->
+			</div>
+			<div class="top-bar-icons">
+				<div style="position: relative;">
+					<button class="icon-button" id="settings-button" aria-label="打开设置菜单" aria-haspopup="true"
+						aria-expanded="false" title="设置">
+						<!-- 使用 SVG Sprite -->
+						<svg width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false">
+							<use xlink:href="#icon-gear"></use>
+						</svg>
+						<span class="visually-hidden">设置</span>
+					</button>
+					<ul class="settings-dropdown" id="settings-menu" role="menu" aria-labelledby="settings-button">
+						<li role="presentation"><a href="settings.html" role="menuitem">个人设置</a></li>
+					</ul>
+				</div>
+				<button class="icon-button" aria-label="帮助中心" title="帮助中心">
+					<!-- 使用 SVG Sprite -->
+					<svg width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false">
+						<use xlink:href="#icon-question"></use>
+					</svg>
+					<span class="visually-hidden">帮助</span>
+				</button>
+			</div>
+		</header>
+		<a href="index.html" class="fixed-back-button" aria-label="返回首页">
+			<!-- 使用 SVG Sprite 引用左箭头图标 -->
+			<svg width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false">
+				<use xlink:href="#icon-arrow-left"></use>
+			</svg>
+			<span class="visually-hidden">返回首页</span>
+		</a>
+
+		<main>
+			<nav aria-label="面包屑导航" class="breadcrumb-nav"> <!-- 添加一个类方便样式化 -->
+				<a href="index.html">首页</a> > <span>个人设置</span>
+			</nav>
+			<h1 class="page-title">个人设置</h1>
+
+			<!-- ... 页面主体内容不变 ... -->
+			<section class="settings-section">
+				<h2>外观设置</h2>
+				<article class="setting-item">
+					<label for="theme-mode">主题模式</label>
+					<p class="description">选择界面的颜色主题。“跟随系统”将自动匹配你操作系统的设置。</p>
+					<div class="radio-group" id="theme-mode">
+						<label><input type="radio" name="theme" value="light"> 浅色</label>
+						<label><input type="radio" name="theme" value="dark"> 深色</label>
+						<label><input type="radio" name="theme" value="system"> 跟随系统</label>
+					</div>
+				</article>
+				<article class="setting-item">
+					<label>高对比度模式</label>
+					<p class="description">为视力不佳用户提供更清晰的显示效果。</p>
+					<div class="placeholder-notice">功能开发中...</div>
+				</article>
+			</section>
+
+			<section class="settings-section">
+				<h2>无障碍设置</h2>
+				<article class="setting-item">
+					<label for="subtitle-font-size">字幕字体大小</label>
+					<p class="description">调整视频和音频内容的字幕大小。</p>
+					<div class="radio-group" id="subtitle-font-size">
+						<label><input type="radio" name="subtitleSize" value="small"> 小</label>
+						<label><input type="radio" name="subtitleSize" value="medium"> 中 (默认)</label>
+						<label><input type="radio" name="subtitleSize" value="large"> 大</label>
+						<label><input type="radio" name="subtitleSize" value="extra-large"> 特大</label>
+					</div>
+					<div class="subtitle-preview" aria-live="polite">
+						<p>这是一段字幕预览文字 (The quick brown fox jumps over the lazy dog)</p>
+					</div>
+				</article>
+				<article class="setting-item">
+					<label>字幕样式</label>
+					<p class="description">自定义字幕的颜色和背景。</p>
+					<div class="placeholder-notice">功能开发中...</div>
+				</article>
+				<article class="setting-item">
+					<label for="global-font-size-controls">全局字体大小</label>
+					<p class="description">调整整个网站的文字大小。</p>
+					<div class="button-group" id="global-font-size-controls">
+						<button class="font-size-button" data-size="small">较小</button>
+						<button class="font-size-button" data-size="default">默认</button>
+						<button class="font-size-button" data-size="large">稍大</button>
+						<button class="font-size-button" data-size="extra-large">更大</button>
+					</div>
+				</article>
+				<article class="setting-item">
+					<label>手语视频偏好</label>
+					<p class="description">设置手语视频的显示方式。</p>
+					<div class="placeholder-notice">功能开发中...</div>
+				</article>
+			</section>
+
+			<section class="settings-section">
+				<h2>学习偏好</h2>
+				<article class="setting-item">
+					<label>学习提醒</label>
+					<p class="description">设置定时提醒，帮助你保持学习习惯。</p>
+					<div class="placeholder-notice">功能开发中...</div>
+				</article>
+				<article class="setting-item">
+					<label>练习反馈方式</label>
+					<p class="description">选择你喜欢的练习反馈效果。</p>
+					<div class="placeholder-notice">功能开发中...</div>
+				</article>
+			</section>
+
+			<section class="settings-section">
+				<h2>账户设置</h2>
+				<article class="setting-item">
+					<label>用户名/昵称</label>
+					<div class="placeholder-notice">功能需登录后实现</div>
+				</article>
+				<article class="setting-item">
+					<label>关联邮箱</label>
+					<div class="placeholder-notice">功能需登录后实现</div>
+				</article>
+				<article class="setting-item">
+					<label>修改密码</label>
+					<div class="placeholder-notice">功能开发中...</div>
+				</article>
+			</section>
+		</main>
+
+		<script src="js/script.js" defer></script>
+	</body>
+</html>
