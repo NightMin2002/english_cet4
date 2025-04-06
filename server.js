@@ -13,7 +13,7 @@ app.use(cors());
 const dbPool = mysql.createPool({
 	host: 'localhost',
 	user: 'root',
-	password: 'night', // <--- 确认密码正确!
+	password: '你的MySQL密码', 
 	database: 'english_learning',
 	waitForConnections: true,
 	connectionLimit: 10,
