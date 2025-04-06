@@ -1,4 +1,7 @@
-// server.js (修正版 - 移除嵌套和多余括号，清理注释)
+// server.js
+
+require('dotenv').config();
+console.log('Attempting to load DB_PASSWORD:', process.env.DB_PASSWORD);
 
 const express = require('express');
 const cors = require('cors');
@@ -9,25 +12,23 @@ const port = 3000;
 
 app.use(cors());
 
-// --- 数据库连接池 ---
 const dbPool = mysql.createPool({
-	host: 'localhost',
-	user: 'root',
-	password: '你的MySQL密码', 
-	database: 'english_learning',
+	host: process.env.DB_HOST || 'localhost',
+	user: process.env.DB_USER || 'root',
+	password: process.env.DB_PASSWORD,
+	database: process.env.DB_DATABASE || 'english_learning',
 	waitForConnections: true,
 	connectionLimit: 10,
 	queueLimit: 0
 });
 
-// --- 测试数据库连接 (服务器启动时) ---
 (async () => {
 	try {
 		const connection = await dbPool.getConnection();
 		console.log('成功连接到 MySQL 数据库！');
 		connection.release();
 	} catch (error) {
-		console.error('数据库连接失败:', error.message); // 只打印错误消息可能更清晰
+		console.error('数据库连接失败:', error.message);
 	}
 })();
 
@@ -46,17 +47,14 @@ app.get('/api/test', (req, res) => {
 	});
 });
 
-// --- 获取单词数据的 API (支持按 Unit 获取) ---
 app.get('/api/units/:unitId/vocab', async (req, res) => {
 	const unitId = parseInt(req.params.unitId, 10);
 
 	if (isNaN(unitId) || unitId <= 0) {
-		// 发现多余括号在此处之后，已移除
 		return res.status(400).json({
 			error: '无效的单元 ID'
 		});
 	}
-	// 这个 console.log 原本在错误的位置，现在移到这里
 	console.log(`收到获取 Unit ${unitId} 单词的请求`);
 
 	try {
