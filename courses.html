@@ -5,26 +5,23 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>课程学习 - 无障碍英语学习平台</title>
 		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/courses.css">
 		<script>
-			// IIFE (Immediately Invoked Function Expression) to avoid polluting global scope
 			(function() {
 				const themeKey = 'user_theme';
 				const themeQuery = '(prefers-color-scheme: dark)';
 				const storedTheme = localStorage.getItem(themeKey);
 				const prefersDark = window.matchMedia(themeQuery).matches;
 				let currentTheme;
-
 				if (storedTheme && ['light', 'dark'].includes(storedTheme)) {
 					currentTheme = storedTheme;
 				} else if (storedTheme === 'system' || !storedTheme) {
-					currentTheme = prefersDark ? 'dark' : 'light'; // Determine based on system if 'system' or no setting
+					currentTheme = prefersDark ? 'dark' : 'light';
 				} else {
-					currentTheme = 'light'; // Fallback to light if localStorage value is corrupted
+					currentTheme = 'light';
 				}
-
-				// Directly set the data-theme attribute on <html> BEFORE the body renders
 				document.documentElement.setAttribute('data-theme', currentTheme);
-				console.log(`Initial theme set in <head>: ${currentTheme}`); // Optional: for debugging
+				console.log(`Initial theme set in <head>: ${currentTheme}`);
 			})();
 		</script>
 	</head>
@@ -32,7 +29,6 @@
 
 		<div style="display: none;">
 			<svg xmlns="http://www.w3.org/2000/svg">
-				<!-- Gear Icon Symbol -->
 				<symbol id="icon-gear" viewBox="0 0 16 16">
 					<path
 						d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311a1.464 1.464 0 0 1-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.858 2.929 2.929 0 0 1 0 5.858z" />
@@ -86,8 +82,7 @@
 		</a>
 
 		<main>
-			<!-- ... 页面主体内容不变 ... -->
-			<nav aria-label="面包屑导航" class="breadcrumb-nav"> <!-- 添加一个类方便样式化 -->
+			<nav aria-label="面包屑导航" class="breadcrumb-nav">
 				<a href="index.html">首页</a> > <span>课程学习</span>
 			</nav>
 			<h1 class="page-title">四级英语 学习路径</h1>
@@ -96,46 +91,74 @@
 			<section class="learning-path">
 				<article class="chapter-block" id="chapter1">
 					<h2>第一章：校园生活 (Campus Life)</h2>
-					<ul>
-						<li><a href="chapter1_vocab.html">本章单词 (列表与图像)</a></li> <!-- 链接已确认 -->
-						<li><a href="#">核心词汇详解 (视频+字幕)</a></li>
-						<li><a href="#">重点句型手语 (视频)</a></li>
-						<li><a href="#">相关语法点: 时态</a></li>
-						<li><a href="#">情景对话: 图书馆借书 (手语+字幕)</a></li>
+					<ul class="chapter-actions">
+						<li><a href="chapter1_vocab.html" class="action-card">
+								<span class="icon">📖</span>
+								本章单词 (列表与图像)
+							</a></li>
+						<li><a href="#" class="action-card secondary">
+								<span class="icon">💬</span>
+								情景对话
+							</a></li>
+						<!-- 添加占位符 -->
+						<li><a href="#" class="action-card">
+								<span class="icon">🎬</span>
+								核心词汇详解 (占位)
+							</a></li>
+						<li><a href="#" class="action-card secondary">
+								<span class="icon">✍️</span>
+								相关语法点 (占位)
+							</a></li>
+						<li><a href="#" class="action-card">
+								<span class="icon">🖐️</span>
+								重点句型手语 (占位)
+							</a></li>
 					</ul>
 				</article>
-				<!-- ... 其他章节不变 ... -->
 				<article class="chapter-block" id="chapter2">
 					<h2>第二章：社会热点 (Social Issues)</h2>
-					<ul>
-						<li><a href="#">本章单词 (列表与图像)</a></li>
-						<li><a href="#">核心词汇详解 (视频+字幕)</a></li>
-						<li><a href="#">重点句型手语 (视频)</a></li>
-						<li><a href="#">相关语法点: 被动语态</a></li>
-						<li><a href="#">情景对话: 讨论环保 (手语+字幕)</a></li>
+					<ul class="chapter-actions">
+						<li><a href="#" class="action-card">
+								<span class="icon">📖</span>
+								本章单词 (列表与图像)
+							</a></li>
+						<li><a href="#" class="action-card secondary">
+								<span class="icon">🗣️</span>
+								核心讲解
+							</a>
+						</li>
 					</ul>
 				</article>
+
+
 				<article class="chapter-block" id="chapter3">
 					<h2>第三章：文化与习俗 (Culture & Customs)</h2>
-					<ul>
-						<li><a href="#">本章单词 (列表与图像)</a></li>
-						<li><a href="#">核心词汇详解 (视频+字幕)</a></li>
-						<li><a href="#">重点句型手语 (视频)</a></li>
-						<li><a href="#">相关语法点: 定语从句</a></li>
-						<li><a href="#">情景对话: 介绍节日 (手语+字幕)</a></li>
-						<li><a href="#">文化知识: 中西节日差异</a></li>
+					<ul class="chapter-actions">
+						<li><a href="#" class="action-card">
+								<span class="icon">📖</span>
+								本章单词 (列表与图像)
+							</a></li>
+						<li><a href="#" class="action-card secondary">
+								<span class="icon">📜</span>
+								语法要点
+							</a></li>
 					</ul>
 				</article>
+
 				<article class="chapter-block" id="chapter4">
 					<h2>第四章：求职与面试 (Job Hunting)</h2>
-					<ul>
-						<li><a href="#">本章单词 (列表与图像)</a></li>
-						<li><a href="#">核心词汇详解 (视频+字幕)</a></li>
-						<li><a href="#">重点句型手语 (视频)</a></li>
-						<li><a href="#">相关语法点: 虚拟语气</a></li>
-						<li><a href="#">情景对话: 面试模拟 (手语+字幕)</a></li>
+					<ul class="chapter-actions">
+						<li><a href="#" class="action-card">
+								<span class="icon">📖</span>
+								本章单词 (列表与图像)
+							</a></li>
+						<li><a href="#" class="action-card secondary">
+								<span class="icon">💼</span>
+								面试模拟
+							</a></li>
 					</ul>
 				</article>
+
 				<p style="text-align: center; color: var(--text-light); margin-top: 2em;">~ 更多章节敬请期待 ~</p>
 			</section>
 		</main>

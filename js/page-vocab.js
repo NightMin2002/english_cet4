@@ -37,6 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <article class="word-entry" role="article" aria-labelledby="word-${wordData.id || wordData.word.toLowerCase()}">
                 <h3 id="word-${wordData.id || wordData.word.toLowerCase()}">${wordData.word}</h3>
                 <p><strong>词性:</strong> ${wordData.partOfSpeech || 'N/A'}</p>
+                <p><strong>释义:</strong> ${wordData.meaning || 'N/A'}</p>
+                <p class="details-hidden">发音:</strong> ${wordData.pronunciation || 'N/A'}</p>
                 <div class="word-visuals">
                      ${wordData.imageUrl ? `<img src="${wordData.imageUrl}" alt="与 ${wordData.word} 相关的图片" class="word-image">` : '<div class="word-image placeholder-image" style="font-size: 0.8em; color: var(--text-light); display: flex; align-items: center; justify-content: center;">[无图片]</div>'}
                     <div class="video-placeholder details-hidden">
@@ -45,8 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="subtitle-placeholder">[视频对应的字幕]</div>
                     </div>
                 </div>
-                <p class="details-hidden"><strong>发音:</strong> ${wordData.pronunciation || 'N/A'}</p>
-                <p class="details-hidden"><strong>释义:</strong> ${wordData.meaning || 'N/A'}</p>
                 ${wordData.exampleSentence ? `
                 <div class="example-sentence details-hidden">
                     <p><strong>例句:</strong> ${wordData.exampleSentence.replace(new RegExp(`\\b${wordData.word}\\b`, 'gi'), `<strong>${wordData.word}</strong>`)}</p>

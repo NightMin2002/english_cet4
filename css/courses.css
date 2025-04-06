@@ -1,0 +1,272 @@
+/* --- 课程页面 (courses.html) 专属样式 --- */
+
+.learning-path {
+	/* 学习路径容器，目前不需要特殊样式 */
+}
+
+.chapter-block {
+	background-color: var(--background-white);
+	border-radius: 8px;
+	margin-bottom: 2em;
+	/* 章节块间距 */
+	padding: 1.5em 2em;
+	/* 内部边距 */
+	box-shadow: var(--card-shadow);
+	border-left: 5px solid var(--chapter-block-border);
+	/* 左侧主题色边框 */
+	position: relative;
+	/* 用于 ::before 定位 */
+	transition: background-color 0.3s ease, border-color 0.3s ease;
+	/* 平滑主题切换 */
+}
+
+/* 章节块左侧的装饰图标 */
+.chapter-block::before {
+	content: '🎓';
+	/* 书本图标 */
+	position: absolute;
+	left: -15px;
+	/* 稍微移出左边框 */
+	top: 1.5em;
+	/* 与标题大致对齐 */
+	font-size: 1.5em;
+	background-color: var(--background-light);
+	/* 使用页面背景色盖住边框 */
+	padding: 0 5px;
+	/* 左右留空 */
+	color: var(--chapter-block-border);
+	/* 使用章节边框颜色 */
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 章节标题 (H2) 已在全局 style.css 中定义，此处无需重复 */
+/* .chapter-block h2 { ... } */
+
+/* 章节内的动作按钮/卡片列表容器 */
+.chapter-block ul.chapter-actions {
+	list-style: none;
+	/* 移除默认列表标记 */
+	padding-left: 0;
+	/* 移除默认左内边距 */
+	margin: 1.5em 0 0 0;
+	/* 与上方标题的间距 */
+	display: flex;
+	/* 使用 Flexbox 布局 */
+	flex-direction: column;
+	/* 垂直排列 */
+	align-items: flex-start;
+	/* 项目靠左对齐 */
+	gap: 0.8em;
+	/* 项目之间的垂直间距 */
+}
+
+/* 章节内的列表项 (用于限制卡片宽度) */
+.chapter-block li {
+	margin-bottom: 0;
+	/* 由 ul 的 gap 控制间距 */
+	width: 100%;
+	/* li 占满可用宽度 */
+	max-width: 350px;
+	/* 限制动作卡片的最大宽度 */
+}
+
+/* 动作卡片/按钮链接 */
+.chapter-block a.action-card {
+	display: flex;
+	align-items: center;
+	padding: 1em 1.5em;
+	/* 增加内边距，使其更饱满 */
+	background-color: var(--light-blue);
+	/* 使用浅蓝色背景，增加区分度 */
+	border: 1px solid transparent;
+	/* 初始透明边框 */
+	border-left: 4px solid var(--primary-blue);
+	/* 左侧添加主题色边框 */
+	border-radius: 6px;
+	color: var(--text-dark);
+	text-decoration: none;
+	font-weight: 500;
+	transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+	text-align: left;
+	width: 100%;
+	box-shadow: var(--card-shadow);
+	/* 使用全局卡片阴影 */
+	cursor: pointer;
+}
+
+/* 卡片内的图标样式 */
+.chapter-block a.action-card .icon {
+	margin-right: 1em;
+	/* 稍微加大图标与文字的间距 */
+	font-size: 1.4em;
+	/* 增大图标 */
+	color: var(--primary-blue);
+	/* 保持图标颜色 */
+	line-height: 1;
+	flex-shrink: 0;
+	/* 防止图标在 flex 布局中被压缩 */
+}
+
+/* 卡片悬停和聚焦状态 */
+.chapter-block a.action-card:hover,
+.chapter-block a.action-card:focus {
+	background-color: var(--primary-blue);
+	/* 悬停时使用主题色背景 */
+	border-color: var(--primary-blue);
+	/* 边框颜色与背景一致 */
+	border-left-color: #003f80;
+	/* 左侧边框加深一点 */
+	color: var(--button-text);
+	/* 使用按钮文字颜色 (通常是白色) */
+	text-decoration: none;
+	transform: translateY(-3px) scale(1.01);
+	/* 更明显的上移和轻微放大 */
+	outline: none;
+	box-shadow: var(--card-hover-shadow);
+	/* 使用全局悬停阴影 */
+}
+
+/* 悬停时图标颜色也变化 */
+.chapter-block a.action-card:hover .icon,
+.chapter-block a.action-card:focus .icon {
+	color: var(--button-text);
+	/* 与文字颜色一致 */
+}
+
+
+/* 次要动作卡片样式 (保持低调) */
+.chapter-block a.action-card.secondary {
+	background-color: var(--background-white);
+	/* 使用更浅的背景 */
+	border: 1px solid var(--border-color);
+	/* 普通边框 */
+	border-left: 4px solid var(--text-light);
+	/* 左侧使用灰色边框 */
+	color: var(--text-light);
+	box-shadow: none;
+	/* 无初始阴影 */
+}
+
+.chapter-block a.action-card.secondary .icon {
+	color: var(--text-light);
+}
+
+/* 次要卡片悬停和聚焦状态 */
+.chapter-block a.action-card.secondary:hover,
+.chapter-block a.action-card.secondary:focus {
+	background-color: var(--background-light);
+	/* 背景变化不大 */
+	border-color: var(--text-dark);
+	/* 边框加深 */
+	border-left-color: var(--text-dark);
+	color: var(--text-dark);
+	transform: none;
+	/* 无形变 */
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+	/* 微妙阴影 */
+}
+
+.chapter-block a.action-card.secondary:hover .icon,
+.chapter-block a.action-card.secondary:focus .icon {
+	color: var(--text-dark);
+	/* 图标颜色也加深 */
+}
+
+/* --- 暗色主题下的课程页样式 (对应修改) --- */
+html[data-theme='dark'] .chapter-block a.action-card {
+	background-color: var(--light-blue);
+	/* 暗色模式下也用较深背景 */
+	border-color: transparent;
+	border-left-color: var(--primary-blue);
+	color: var(--text-dark);
+	box-shadow: var(--card-shadow);
+}
+
+html[data-theme='dark'] .chapter-block a.action-card .icon {
+	color: var(--primary-blue);
+}
+
+html[data-theme='dark'] .chapter-block a.action-card:hover,
+html[data-theme='dark'] .chapter-block a.action-card:focus {
+	background-color: var(--primary-blue);
+	border-color: var(--primary-blue);
+	border-left-color: #4aa0d4;
+	/* 暗色悬停左边框稍亮 */
+	color: #111;
+	/* 暗色模式按钮文字 */
+	box-shadow: var(--card-hover-shadow);
+}
+
+html[data-theme='dark'] .chapter-block a.action-card:hover .icon,
+html[data-theme='dark'] .chapter-block a.action-card:focus .icon {
+	color: #111;
+	/* 暗色悬停图标颜色 */
+}
+
+/* 暗色主题下的次要卡片 */
+html[data-theme='dark'] .chapter-block a.action-card.secondary {
+	background-color: var(--background-white);
+	border-color: var(--border-color);
+	border-left-color: var(--text-light);
+	color: var(--text-light);
+	box-shadow: none;
+}
+
+html[data-theme='dark'] .chapter-block a.action-card.secondary .icon {
+	color: var(--text-light);
+}
+
+/* 暗色主题下次要卡片悬停/聚焦 */
+html[data-theme='dark'] .chapter-block a.action-card.secondary:hover,
+html[data-theme='dark'] .chapter-block a.action-card.secondary:focus {
+	background-color: #3a3a3a;
+	/* 暗色悬停背景 */
+	border-color: var(--text-light);
+	border-left-color: var(--text-light);
+	color: var(--text-dark);
+	transform: none;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+html[data-theme='dark'] .chapter-block a.action-card.secondary:hover .icon,
+html[data-theme='dark'] .chapter-block a.action-card.secondary:focus .icon {
+	color: var(--text-dark);
+}
+
+/* --- 课程页响应式调整 --- */
+@media (max-width: 768px) {
+	.chapter-block {
+		padding: 1em 1.5em;
+		/* 减小内边距 */
+		border-left-width: 4px;
+		/* 减小左边框宽度 */
+	}
+
+	.chapter-block::before {
+		left: -12px;
+		/* 调整图标位置 */
+		font-size: 1.3em;
+		/* 减小图标大小 */
+	}
+
+	/* 动作卡片最大宽度可以在这里调整，但可能保持 350px 也可以 */
+	.chapter-block li {
+		max-width: none;
+		/* 或者在小屏幕上取消最大宽度限制，让卡片占满 */
+	}
+}
+
+/* 你可以添加更多针对小屏幕的调整 */
+@media (max-width: 480px) {
+	.chapter-block a.action-card {
+		padding: 0.7em 1em;
+		/* 进一步减小卡片内边距 */
+	}
+
+	.chapter-block a.action-card .icon {
+		font-size: 1.1em;
+		/* 减小图标 */
+		margin-right: 0.6em;
+		/* 减小图标间距 */
+	}
+}

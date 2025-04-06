@@ -1,4 +1,4 @@
-/* --- Basic Reset --- */
+/* --- 基本重置 --- */
 * {
 	margin: 0;
 	padding: 0;
@@ -13,15 +13,11 @@ body {
 
 html {
 	background-color: var(--background-light);
-	/* transition: background-color 0.3s ease; */
-	/* 移除以减少闪烁 */
 }
 
-/* --- End Reset --- */
-
-/* --- 全局样式与变量 --- */
+/* --- 全局变量与主题 --- */
 :root {
-	/* --- Light Theme Defaults --- */
+	/* 亮色主题默认值 */
 	--primary-blue: #0056b3;
 	--light-blue: #e7f1ff;
 	--text-dark: #212529;
@@ -36,47 +32,39 @@ html {
 	--top-bar-border: var(--border-color);
 	--top-bar-icon-color: var(--text-light);
 	--top-bar-icon-hover-color: var(--primary-blue);
-	--chapter-block-border: var(--primary-blue);
-	/* For courses page */
-	--chapter-link-bg: var(--light-blue);
-	/* For courses page */
-	--chapter-link-text: var(--primary-blue);
-	/* For courses page */
-	--chapter-link-hover-bg: var(--primary-blue);
-	/* For courses page */
-	--chapter-link-hover-text: var(--background-white);
-	/* For courses page */
 	--module-bg: var(--background-white);
-	/* For homepage modules */
+	/* 首页模块背景 */
 	--module-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-	/* For homepage modules */
+	/* 首页模块阴影 */
 	--button-bg: var(--primary-blue);
-	/* General buttons */
+	/* 通用按钮背景 */
 	--button-text: var(--background-white);
-	/* General buttons */
+	/* 通用按钮文字 */
 	--button-hover-bg: #004085;
-	/* General buttons */
+	/* 通用按钮悬停背景 */
 	--input-bg: var(--background-white);
-	/* Form inputs (future) */
+	/* 表单输入框背景 */
 	--input-border: var(--border-color);
-	/* Form inputs (future) */
+	/* 表单输入框边框 */
 	--input-text: var(--text-dark);
-	/* Form inputs (future) */
+	/* 表单输入框文字 */
 	--dropdown-bg: var(--background-white);
-	/* Settings dropdown */
+	/* 设置下拉菜单背景 */
 	--dropdown-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-	/* Settings dropdown */
+	/* 设置下拉菜单阴影 */
 	--dropdown-link-hover-bg: var(--light-blue);
-	/* Settings dropdown */
+	/* 设置下拉菜单链接悬停背景 */
 	--subtitle-font-size: 1em;
-	/* Global setting */
+	/* 全局字幕字体大小 */
 	--global-font-scale: 1;
-	/* Global setting */
+	/* 全局字体缩放比例 */
 	--top-bar-height: 60px;
-	/* Top bar height */
+	/* 顶部导航栏高度 */
+	/* --chapter-block-border: var(--primary-blue); */
+	/* 移至 courses.css */
 }
 
-/* --- Apply Dark Theme Variables --- */
+/* 暗色主题变量 */
 html[data-theme='dark'] {
 	--primary-blue: #5dade2;
 	--light-blue: #2c3e50;
@@ -92,11 +80,6 @@ html[data-theme='dark'] {
 	--top-bar-border: #333;
 	--top-bar-icon-color: var(--text-light);
 	--top-bar-icon-hover-color: var(--primary-blue);
-	--chapter-block-border: var(--primary-blue);
-	--chapter-link-bg: #34495e;
-	--chapter-link-text: var(--text-dark);
-	--chapter-link-hover-bg: var(--primary-blue);
-	--chapter-link-hover-text: #111;
 	--module-bg: var(--background-white);
 	--module-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 	--button-bg: var(--primary-blue);
@@ -108,13 +91,13 @@ html[data-theme='dark'] {
 	--dropdown-bg: #333;
 	--dropdown-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 	--dropdown-link-hover-bg: #444;
-	/* subtitle-font-size and global-font-scale use defaults */
-	--top-bar-height: 60px;
+	/* --chapter-block-border: var(--primary-blue); */
+	/* 移至 courses.css */
 }
 
-/* --- Apply Light Theme Variables (Explicitly for JS toggle) --- */
+/* 亮色主题变量 (用于JS切换) */
 html[data-theme='light'] {
-	/* Re-declare light theme variables for explicit JS toggle */
+	/* 这里主要是为了覆盖可能从暗色模式继承过来的值 */
 	--primary-blue: #0056b3;
 	--light-blue: #e7f1ff;
 	--text-dark: #212529;
@@ -122,18 +105,11 @@ html[data-theme='light'] {
 	--background-light: #f8f9fa;
 	--background-white: #ffffff;
 	--border-color: #dee2e6;
-	--card-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-	--card-hover-shadow: 0 8px 15px rgba(0, 86, 179, 0.1);
 	--link-color: var(--primary-blue);
 	--top-bar-bg: var(--background-white);
 	--top-bar-border: var(--border-color);
 	--top-bar-icon-color: var(--text-light);
 	--top-bar-icon-hover-color: var(--primary-blue);
-	--chapter-block-border: var(--primary-blue);
-	--chapter-link-bg: var(--light-blue);
-	--chapter-link-text: var(--primary-blue);
-	--chapter-link-hover-bg: var(--primary-blue);
-	--chapter-link-hover-text: var(--background-white);
 	--module-bg: var(--background-white);
 	--module-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 	--button-bg: var(--primary-blue);
@@ -145,15 +121,12 @@ html[data-theme='light'] {
 	--dropdown-bg: var(--background-white);
 	--dropdown-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 	--dropdown-link-hover-bg: var(--light-blue);
-	--subtitle-font-size: 1em;
-	--global-font-scale: 1;
-	--top-bar-height: 60px;
 }
 
-/* Apply system preference (dark) if no explicit theme is set by JS */
+/* 跟随系统偏好设置 (如果JS未指定主题) */
 @media (prefers-color-scheme: dark) {
 	html:not([data-theme='light']):not([data-theme='dark']) {
-		/* Apply dark vars if no theme override */
+		/* 应用暗色变量 */
 		--primary-blue: #5dade2;
 		--light-blue: #2c3e50;
 		--text-dark: #e9ecef;
@@ -161,7 +134,6 @@ html[data-theme='light'] {
 		--background-light: #1a1a1a;
 		--background-white: #2b2b2b;
 		--border-color: #495057;
-		/* ... (rest of dark vars) ... */
 		--card-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 		--card-hover-shadow: 0 8px 15px rgba(93, 173, 226, 0.2);
 		--link-color: var(--primary-blue);
@@ -169,11 +141,6 @@ html[data-theme='light'] {
 		--top-bar-border: #333;
 		--top-bar-icon-color: var(--text-light);
 		--top-bar-icon-hover-color: var(--primary-blue);
-		--chapter-block-border: var(--primary-blue);
-		--chapter-link-bg: #34495e;
-		--chapter-link-text: var(--text-dark);
-		--chapter-link-hover-bg: var(--primary-blue);
-		--chapter-link-hover-text: #111;
 		--module-bg: var(--background-white);
 		--module-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 		--button-bg: var(--primary-blue);
@@ -185,25 +152,21 @@ html[data-theme='light'] {
 		--dropdown-bg: #333;
 		--dropdown-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 		--dropdown-link-hover-bg: #444;
-		--subtitle-font-size: 1em;
-		--global-font-scale: 1;
-		--top-bar-height: 60px;
 	}
 }
 
 
+/* --- 全局基础样式 --- */
 body {
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 	line-height: 1.6;
 	background-color: var(--background-light);
-	/* Body background color */
 	color: var(--text-dark);
 	font-size: calc(1rem * var(--global-font-scale));
-	/* Only transition font-size */
 	transition: font-size 0.2s ease;
 }
 
-/* --- Minimal Top Fixed Nav Bar --- */
+/* --- 顶部固定导航栏 --- */
 .minimal-top-bar {
 	position: fixed;
 	top: 0;
@@ -222,7 +185,6 @@ body {
 	overflow: hidden;
 }
 
-/* Ensure content stays above decoration */
 .minimal-top-bar .logo,
 .minimal-top-bar .top-bar-icons {
 	position: relative;
@@ -242,7 +204,6 @@ body {
 }
 
 .top-bar-icons>div {
-	/* Wrapper for dropdown */
 	position: relative;
 	margin-left: 0.5em;
 }
@@ -272,7 +233,7 @@ html[data-theme='dark'] .top-bar-icons button.icon-button:focus {
 	background-color: rgba(93, 173, 226, 0.15);
 }
 
-/* Settings Dropdown Menu Styles */
+/* 设置下拉菜单 */
 .settings-dropdown {
 	position: fixed;
 	top: calc(var(--top-bar-height) + 0.5em);
@@ -315,7 +276,7 @@ html[data-theme='dark'] .top-bar-icons button.icon-button:focus {
 	outline: none;
 }
 
-/* --- Dynamic Decorations Styles (For Top Bar Background) --- */
+/* --- 顶部导航栏动态背景装饰 --- */
 .dynamic-decorations {
 	position: absolute;
 	top: 0;
@@ -332,7 +293,6 @@ html[data-theme='dark'] .top-bar-icons button.icon-button:focus {
 	opacity: 0.1;
 	background-color: var(--primary-blue);
 	transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s ease;
-	pointer-events: none;
 	border-radius: 50%;
 }
 
@@ -351,23 +311,27 @@ html[data-theme='dark'] .deco-shape.square {
 }
 
 .deco-shape.triangle {
-	background-color: var(--primary-blue);
+	background-color: transparent;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 15px solid var(--primary-blue);
 	opacity: 0.12;
 	border-radius: 0;
-	clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+	width: 0;
+	height: 0;
 }
 
 html[data-theme='dark'] .deco-shape.triangle {
-	background-color: var(--primary-blue);
+	border-bottom-color: var(--primary-blue);
 	opacity: 0.15;
 }
 
-/* --- Main Content Common Styles --- */
+
+/* --- 主要内容区域通用样式 --- */
 main {
 	max-width: 1100px;
 	margin-left: auto;
 	margin-right: auto;
-	/* Use variable for top margin */
 	margin-top: calc(var(--top-bar-height) + 1.5em);
 	margin-bottom: 2em;
 	padding: 0 1.5em;
@@ -381,12 +345,20 @@ h3 {
 }
 
 h2 {
-	/* General section headings */
 	border-bottom: 1px solid var(--border-color);
 	padding-bottom: 0.5em;
+	margin-top: 1.5em;
 	margin-bottom: 1em;
 	transition: border-color 0.3s ease;
 }
+
+main>h2:first-of-type,
+main>section:first-of-type>h2:first-of-type,
+main>div:first-of-type>h2:first-of-type {
+	/* 适配 section, div 或直接在 main 下的 h2 */
+	margin-top: 0;
+}
+
 
 a {
 	color: var(--link-color);
@@ -397,7 +369,23 @@ a:hover {
 	text-decoration: underline;
 }
 
-/* --- Breadcrumb Navigation Styles (Global) --- */
+/* 页面主标题 (如 H1) */
+.page-title {
+	text-align: center;
+	margin-bottom: 1em;
+	/* 稍微减少间距 */
+}
+
+/* 页面简介文字 */
+.page-intro {
+	text-align: center;
+	color: var(--text-light);
+	margin-bottom: 2.5em;
+	font-size: 1.1em;
+}
+
+
+/* --- 面包屑导航 (全局组件) --- */
 nav.breadcrumb-nav {
 	font-size: 0.9em;
 	margin-bottom: 1.5em;
@@ -409,7 +397,6 @@ nav.breadcrumb-nav {
 
 nav.breadcrumb-nav a,
 nav.breadcrumb-nav span {
-	/* Bubble styles */
 	display: inline-block;
 	padding: 0.3em 0.8em;
 	border-radius: 15px;
@@ -454,339 +441,7 @@ html[data-theme='dark'] nav.breadcrumb-nav span {
 	color: #111;
 }
 
-@media (max-width: 480px) {
-
-	/* Responsive breadcrumbs */
-	nav.breadcrumb-nav {
-		gap: 0.6em;
-		font-size: 0.85em;
-	}
-
-	nav.breadcrumb-nav a,
-	nav.breadcrumb-nav span {
-		padding: 0.25em 0.7em;
-	}
-}
-
-
-/* --- Homepage Specific Styles --- */
-.page-title {
-	text-align: center;
-	margin-bottom: 1em;
-}
-
-/* Used on multiple pages, keep global? */
-.page-intro {
-	text-align: center;
-	color: var(--text-light);
-	margin-bottom: 2.5em;
-	font-size: 1.1em;
-}
-
-/* Used on multiple pages, keep global? */
-.hub-container {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-	gap: 1.5em;
-	margin-bottom: 3em;
-}
-
-.hub-card {
-	display: block;
-	background-color: var(--background-white);
-	border-radius: 8px;
-	padding: 1.5em;
-	text-align: center;
-	box-shadow: var(--card-shadow);
-	transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.3s ease;
-	color: var(--text-dark);
-	text-decoration: none;
-}
-
-.hub-card:hover,
-.hub-card:focus {
-	transform: translateY(-5px);
-	box-shadow: var(--card-hover-shadow);
-	outline: none;
-	text-decoration: none;
-}
-
-.hub-card .icon {
-	font-size: 2.5em;
-	color: var(--link-color);
-	margin-bottom: 0.5em;
-	display: block;
-}
-
-.hub-card h3 {
-	margin-top: 0;
-	margin-bottom: 0.5em;
-	font-size: 1.2em;
-	color: var(--link-color);
-}
-
-.hub-card p {
-	color: var(--text-light);
-	font-size: 0.9em;
-	line-height: 1.5;
-}
-
-.info-modules {
-	display: flex;
-	gap: 1.5em;
-	justify-content: center;
-	flex-wrap: wrap;
-	margin-bottom: 2em;
-}
-
-.module {
-	background-color: var(--module-bg);
-	padding: 1em 1.5em;
-	border-radius: 6px;
-	box-shadow: var(--module-shadow);
-	min-width: 200px;
-	text-align: center;
-	transition: background-color 0.3s ease;
-}
-
-.module h4 {
-	margin-top: 0;
-	margin-bottom: 0.5em;
-	color: var(--link-color);
-	font-size: 1em;
-}
-
-.module p {
-	margin: 0;
-	color: var(--text-dark);
-}
-
-/* --- Courses Page Specific Styles --- */
-.learning-path {}
-
-.chapter-block {
-	background-color: var(--background-white);
-	border-radius: 8px;
-	margin-bottom: 2em;
-	padding: 1.5em 2em;
-	box-shadow: var(--card-shadow);
-	border-left: 5px solid var(--chapter-block-border);
-	position: relative;
-	transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-
-.chapter-block::before {
-	content: '🎓';
-	position: absolute;
-	left: -15px;
-	top: 1.5em;
-	font-size: 1.5em;
-	background-color: var(--background-light);
-	padding: 0 5px;
-	color: var(--chapter-block-border);
-	transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.chapter-block h2 {
-	margin-top: 0;
-	margin-bottom: 1em;
-	padding-bottom: 0.5em;
-}
-
-.chapter-block ul {
-	list-style: none;
-	padding-left: 0;
-	margin: 0;
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-	gap: 1em;
-}
-
-.chapter-block li a {
-	display: block;
-	padding: 0.8em 1em;
-	background-color: var(--chapter-link-bg);
-	border-radius: 5px;
-	color: var(--chapter-link-text);
-	text-decoration: none;
-	font-weight: 500;
-	transition: background-color 0.2s ease, color 0.2s ease;
-	text-align: center;
-	border: 1px solid transparent;
-}
-
-.chapter-block li a:hover,
-.chapter-block li a:focus {
-	background-color: var(--chapter-link-hover-bg);
-	color: var(--chapter-link-hover-text);
-	text-decoration: none;
-	outline: none;
-	border: 1px solid var(--chapter-link-hover-bg);
-}
-
-/* --- Settings Page Specific Styles --- */
-.settings-section {
-	background-color: var(--background-white);
-	border-radius: 8px;
-	padding: 1.5em 2em;
-	margin-bottom: 2em;
-	box-shadow: var(--card-shadow);
-	transition: background-color 0.3s ease;
-}
-
-.settings-section h2 {
-	margin-top: 0;
-	margin-bottom: 1em;
-	font-size: 1.3em;
-	border-bottom: none;
-}
-
-.setting-item {
-	margin-bottom: 1.5em;
-	padding-bottom: 1em;
-	border-bottom: 1px solid var(--border-color);
-	transition: border-color 0.3s ease;
-}
-
-.setting-item:last-child {
-	margin-bottom: 0;
-	padding-bottom: 0;
-	border-bottom: none;
-}
-
-.setting-item label {
-	display: block;
-	font-weight: bold;
-	margin-bottom: 0.5em;
-	color: var(--text-dark);
-}
-
-.setting-item p.description {
-	font-size: 0.9em;
-	color: var(--text-light);
-	margin-top: 0.3em;
-	margin-bottom: 0.8em;
-}
-
-.radio-group label {
-	display: inline-block;
-	margin-right: 1.5em;
-	font-weight: normal;
-	cursor: pointer;
-	color: var(--text-dark);
-	transition: color 0.3s ease;
-}
-
-.radio-group input[type="radio"] {
-	margin-right: 0.5em;
-	vertical-align: middle;
-	accent-color: var(--primary-blue);
-}
-
-.setting-item select,
-.setting-item input[type="text"],
-.setting-item input[type="number"] {
-	padding: 0.5em 0.8em;
-	border: 1px solid var(--input-border);
-	background-color: var(--input-bg);
-	color: var(--input-text);
-	border-radius: 4px;
-	width: 100%;
-	max-width: 300px;
-	box-sizing: border-box;
-	transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-}
-
-.placeholder-notice {
-	font-style: italic;
-	color: var(--text-light);
-	background-color: var(--background-light);
-	padding: 0.5em 1em;
-	border-radius: 4px;
-	border: 1px dashed var(--border-color);
-	display: inline-block;
-	margin-top: 0.5em;
-	transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-}
-
-button.setting-button {
-	display: inline-block;
-	background-color: var(--button-bg);
-	color: var(--button-text);
-	padding: 0.6em 1.2em;
-	text-decoration: none;
-	border-radius: 4px;
-	border: none;
-	cursor: pointer;
-	font-size: 1em;
-	text-align: center;
-	transition: background-color 0.2s ease, color 0.3s ease;
-}
-
-button.setting-button:hover,
-button.setting-button:focus {
-	background-color: var(--button-hover-bg);
-	outline: none;
-}
-
-.subtitle-preview {
-	background-color: rgba(0, 0, 0, 0.7);
-	color: #fff;
-	padding: 1em;
-	margin-top: 1em;
-	border-radius: 4px;
-	font-size: var(--subtitle-font-size);
-	line-height: 1.4;
-	text-align: center;
-	transition: font-size 0.2s ease;
-	max-width: 90%;
-	overflow-wrap: break-word;
-}
-
-html[data-theme='dark'] .subtitle-preview {
-	background-color: rgba(20, 20, 20, 0.8);
-	color: #eee;
-}
-
-.button-group {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.8em;
-}
-
-button.font-size-button {
-	padding: 0.5em 1em;
-	border: 1px solid var(--border-color);
-	background-color: var(--background-white);
-	color: var(--text-dark);
-	border-radius: 4px;
-	cursor: pointer;
-	font-size: 0.9em;
-	transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-}
-
-button.font-size-button:hover {
-	background-color: var(--light-blue);
-	border-color: var(--primary-blue);
-}
-
-html[data-theme='dark'] button.font-size-button:hover {
-	background-color: #34495e;
-	border-color: var(--primary-blue);
-}
-
-button.font-size-button.active {
-	background-color: var(--primary-blue);
-	color: var(--button-text);
-	border-color: var(--primary-blue);
-	font-weight: bold;
-}
-
-html[data-theme='dark'] button.font-size-button.active {
-	color: #111;
-}
-
-/* --- Fixed Back Button Styles (Global Component) --- */
+/* --- 固定返回按钮 (全局组件) --- */
 .fixed-back-button {
 	position: fixed;
 	top: calc(var(--top-bar-height) + 1em);
@@ -832,7 +487,7 @@ html[data-theme='dark'] .fixed-back-button:focus {
 	border-color: var(--primary-blue);
 }
 
-/* --- Visually Hidden Class (Accessibility) --- */
+/* --- 辅助类 --- */
 .visually-hidden {
 	position: absolute !important;
 	height: 1px;
@@ -843,7 +498,7 @@ html[data-theme='dark'] .fixed-back-button:focus {
 	white-space: nowrap;
 }
 
-/* --- General Button Style (Example) --- */
+/* --- 通用按钮样式 (示例) --- */
 .button {
 	display: inline-block;
 	background-color: var(--button-bg);
@@ -865,62 +520,390 @@ html[data-theme='dark'] .fixed-back-button:focus {
 }
 
 
-/* --- Responsive Adjustments --- */
+/* --- 首页 (index.html) 特定样式 --- */
+/* 首页顶部信息模块 */
+.info-modules {
+	display: flex;
+	gap: 1.5em;
+	justify-content: center;
+	/* 居中模块 */
+	flex-wrap: wrap;
+	/* 允许换行 */
+	margin-bottom: 2em;
+	/* 与下方卡片间距 */
+	margin-top: -1em;
+	/* 稍微向上移动一点 */
+}
+
+.module {
+	background-color: var(--module-bg);
+	padding: 1em 1.5em;
+	border-radius: 6px;
+	box-shadow: var(--module-shadow);
+	min-width: 200px;
+	/* 最小宽度 */
+	text-align: center;
+	transition: background-color 0.3s ease;
+}
+
+.module h4 {
+	margin-top: 0;
+	margin-bottom: 0.5em;
+	color: var(--link-color);
+	font-size: 1em;
+}
+
+.module p {
+	margin: 0.3em 0 0 0;
+	/* 段落间距 */
+	color: var(--text-dark);
+	font-size: 0.9em;
+}
+
+.module p a {
+	/* 模块内链接 */
+	font-weight: bold;
+}
+
+/* 首页导航卡片容器 */
+.hub-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	/* 响应式网格布局 */
+	gap: 1.5em;
+	/* 网格间距 */
+	margin-bottom: 3em;
+	/* 底部间距 */
+}
+
+/* 首页导航卡片 */
+.hub-card {
+	display: block;
+	/* 使卡片可点击 */
+	background-color: var(--background-white);
+	border-radius: 8px;
+	padding: 1.5em;
+	text-align: center;
+	box-shadow: var(--card-shadow);
+	transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.3s ease;
+	color: var(--text-dark);
+	text-decoration: none;
+	/* 继承自a，但明确一下 */
+}
+
+.hub-card:hover,
+.hub-card:focus {
+	transform: translateY(-5px);
+	/* 悬停上移效果 */
+	box-shadow: var(--card-hover-shadow);
+	/* 悬停阴影效果 */
+	outline: none;
+	text-decoration: none;
+	/* 保持无下划线 */
+	color: var(--text-dark);
+	/* 保持文字颜色 */
+}
+
+/* 悬停时改变内部链接颜色 */
+.hub-card:hover h3,
+.hub-card:focus h3 {
+	color: var(--primary-blue);
+}
+
+
+.hub-card .icon {
+	font-size: 2.5em;
+	/* 图标大小 */
+	color: var(--link-color);
+	margin-bottom: 0.5em;
+	display: block;
+	/* 独占一行 */
+}
+
+.hub-card h3 {
+	margin-top: 0;
+	margin-bottom: 0.5em;
+	font-size: 1.2em;
+	color: var(--link-color);
+	/* 默认标题颜色 */
+	transition: color 0.2s ease-in-out;
+	/* 平滑颜色过渡 */
+}
+
+.hub-card p {
+	color: var(--text-light);
+	/* 描述文字颜色 */
+	font-size: 0.9em;
+	line-height: 1.5;
+}
+
+
+/* --- 设置页面 (settings.html) 特定样式 --- */
+.settings-section {
+	background-color: var(--background-white);
+	border-radius: 8px;
+	padding: 1.5em 2em;
+	margin-bottom: 2em;
+	/* 区块间距 */
+	box-shadow: var(--card-shadow);
+	transition: background-color 0.3s ease;
+}
+
+/* 设置区块标题 */
+.settings-section h2 {
+	margin-top: 0;
+	/* 第一个 h2 的 margin-top 已由全局规则处理 */
+	margin-bottom: 1em;
+	font-size: 1.3em;
+	border-bottom: none;
+	/* 设置页的 H2 不带下划线 */
+}
+
+/* 单个设置项 */
+.setting-item {
+	margin-bottom: 1.5em;
+	padding-bottom: 1em;
+	border-bottom: 1px solid var(--border-color);
+	/* 分隔线 */
+	transition: border-color 0.3s ease;
+}
+
+/* 最后一个设置项无分隔线 */
+.setting-item:last-child {
+	margin-bottom: 0;
+	padding-bottom: 0;
+	border-bottom: none;
+}
+
+.setting-item label:not(.radio-group label):not(.checkbox-group label) {
+	/* 应用于非单选/复选框组的主标签 */
+	display: block;
+	/* 独占一行 */
+	font-weight: bold;
+	margin-bottom: 0.5em;
+	color: var(--text-dark);
+}
+
+/* 设置项描述文字 */
+.setting-item p.description {
+	font-size: 0.9em;
+	color: var(--text-light);
+	margin-top: 0.3em;
+	/* 与上方标签间距 */
+	margin-bottom: 0.8em;
+	/* 与下方控件间距 */
+}
+
+/* 单选按钮组 */
+.radio-group {
+	margin-top: 0.5em;
+	/* 微调与上方元素的间距 */
+}
+
+.radio-group label {
+	display: inline-block;
+	/* 水平排列 */
+	margin-right: 1.5em;
+	/* 选项间距 */
+	font-weight: normal;
+	/* 普通字重 */
+	cursor: pointer;
+	color: var(--text-dark);
+	transition: color 0.3s ease;
+}
+
+.radio-group input[type="radio"] {
+	margin-right: 0.5em;
+	/* 图标与文字间距 */
+	vertical-align: middle;
+	/* 垂直对齐 */
+	accent-color: var(--primary-blue);
+	/* 单选按钮颜色 */
+	cursor: pointer;
+}
+
+/* 下拉选择框、文本输入框 */
+.setting-item select,
+.setting-item input[type="text"],
+.setting-item input[type="number"] {
+	padding: 0.5em 0.8em;
+	border: 1px solid var(--input-border);
+	background-color: var(--input-bg);
+	color: var(--input-text);
+	border-radius: 4px;
+	width: 100%;
+	/* 占满容器宽度 */
+	max-width: 300px;
+	/* 限制最大宽度 */
+	box-sizing: border-box;
+	transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* 占位提示 */
+.placeholder-notice {
+	font-style: italic;
+	color: var(--text-light);
+	background-color: var(--background-light);
+	padding: 0.5em 1em;
+	border-radius: 4px;
+	border: 1px dashed var(--border-color);
+	display: inline-block;
+	/* 适应内容宽度 */
+	margin-top: 0.5em;
+	transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* 设置页面内的按钮 */
+button.setting-button {
+	display: inline-block;
+	background-color: var(--button-bg);
+	color: var(--button-text);
+	padding: 0.6em 1.2em;
+	text-decoration: none;
+	border-radius: 4px;
+	border: none;
+	cursor: pointer;
+	font-size: 1em;
+	text-align: center;
+	transition: background-color 0.2s ease, color 0.3s ease;
+}
+
+button.setting-button:hover,
+button.setting-button:focus {
+	background-color: var(--button-hover-bg);
+	outline: none;
+}
+
+/* 字幕预览区域 */
+.subtitle-preview {
+	background-color: rgba(0, 0, 0, 0.7);
+	/* 半透明黑色背景 */
+	color: #fff;
+	/* 白色文字 */
+	padding: 1em;
+	margin-top: 1em;
+	border-radius: 4px;
+	font-size: var(--subtitle-font-size);
+	/* 使用 CSS 变量控制字体大小 */
+	line-height: 1.4;
+	text-align: center;
+	transition: font-size 0.2s ease;
+	/* 平滑字体大小过渡 */
+	max-width: 90%;
+	/* 防止过宽 */
+	overflow-wrap: break-word;
+	/* 允许长单词换行 */
+}
+
+html[data-theme='dark'] .subtitle-preview {
+	background-color: rgba(20, 20, 20, 0.8);
+	/* 暗色模式预览背景 */
+	color: #eee;
+}
+
+/* 按钮组 (如字体大小控制) */
+.button-group {
+	display: flex;
+	flex-wrap: wrap;
+	/* 允许换行 */
+	gap: 0.8em;
+	/* 按钮间距 */
+}
+
+/* 字体大小控制按钮 */
+button.font-size-button {
+	padding: 0.5em 1em;
+	border: 1px solid var(--border-color);
+	background-color: var(--background-white);
+	color: var(--text-dark);
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 0.9em;
+	transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+button.font-size-button:hover {
+	background-color: var(--light-blue);
+	border-color: var(--primary-blue);
+}
+
+html[data-theme='dark'] button.font-size-button:hover {
+	background-color: #34495e;
+	border-color: var(--primary-blue);
+}
+
+/* 激活状态的字体大小按钮 */
+button.font-size-button.active {
+	background-color: var(--primary-blue);
+	color: var(--button-text);
+	border-color: var(--primary-blue);
+	font-weight: bold;
+}
+
+html[data-theme='dark'] button.font-size-button.active {
+	color: #111;
+	/* 暗色模式下激活按钮文字颜色 */
+}
+
+
+/* --- 全局响应式调整 --- */
 @media (max-width: 768px) {
+
+	/* 缩小基础字体大小 */
 	body {
 		font-size: calc(0.9375rem * var(--global-font-scale));
+		/* 约 15px */
 	}
 
+	/* 调整顶部导航栏 */
 	.minimal-top-bar {
-		top: calc(var(--top-bar-height) + 0.5em);
-		height: var(--top-bar-height);
 		padding: 0 1em;
-		right: 1em;
-		min-width: 140px;
 	}
 
 	.logo a {
 		font-size: 1.3em;
 	}
 
+	.settings-dropdown {
+		right: 1em;
+		min-width: 140px;
+	}
+
+	/* 调整主要内容区域 */
 	main {
 		margin-top: calc(var(--top-bar-height) + 1em);
 		margin-bottom: 1.5em;
 		padding: 0 1em;
 	}
 
+	/* 调整首页卡片网格 */
 	.hub-container {
 		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		/* 在小屏上允许卡片更窄 */
+		gap: 1em;
+		/* 减小间距 */
+	}
+
+	/* 调整首页信息模块 */
+	.info-modules {
 		gap: 1em;
 	}
 
-	.chapter-block {
-		padding: 1em 1.5em;
-		border-left-width: 4px;
+	.module {
+		min-width: 180px;
 	}
 
-	.chapter-block::before {
-		left: -12px;
-		font-size: 1.3em;
-	}
-
-	.chapter-block ul {
-		grid-template-columns: 1fr;
-		gap: 0.8em;
-	}
-
+	/* 调整设置页面 */
 	.settings-section {
 		padding: 1em 1.5em;
 	}
 
-	.settings-dropdown {
-		min-width: 140px;
-	}
-
 	.radio-group label {
 		margin-right: 1em;
+		/* 减小单选按钮间距 */
 	}
 
+	/* 调整固定返回按钮 */
 	.fixed-back-button {
 		top: calc(var(--top-bar-height) + 0.8em);
 		left: 1em;
@@ -930,8 +913,95 @@ html[data-theme='dark'] .fixed-back-button:focus {
 	}
 }
 
-/* --- Vocab Page Specific Styles --- (Should be in vocab.css) --- */
-/* .word-list-container, .word-entry, .word-visuals, etc. were here but moved */
+@media (max-width: 480px) {
 
-/* --- Resource Page Specific Styles --- (Should be in resources.css) --- */
-/* .resource-section, .resource-grid, .resource-card, etc. were here but moved */
+	/* 调整面包屑 */
+	nav.breadcrumb-nav {
+		gap: 0.6em;
+		font-size: 0.85em;
+	}
+
+	nav.breadcrumb-nav a,
+	nav.breadcrumb-nav span {
+		padding: 0.25em 0.7em;
+	}
+
+	/* 调整首页卡片 */
+	.hub-card {
+		padding: 1em;
+	}
+
+	/* 减小内边距 */
+	.hub-card .icon {
+		font-size: 2em;
+	}
+
+	/* 减小图标 */
+	.hub-card h3 {
+		font-size: 1.1em;
+	}
+
+	/* 减小标题 */
+	.hub-card p {
+		font-size: 0.85em;
+	}
+
+	/* 减小描述文字 */
+
+	/* 调整首页信息模块 */
+	.module {
+		padding: 0.8em 1em;
+		min-width: 150px;
+	}
+
+	/* 减小内边距和最小宽度 */
+	.module h4 {
+		font-size: 0.9em;
+	}
+
+	.module p {
+		font-size: 0.8em;
+	}
+
+	/* 调整设置页面 */
+	.settings-section {
+		padding: 1em;
+	}
+
+	/* 减小内边距 */
+	.setting-item label:not(.radio-group label):not(.checkbox-group label),
+	/* 针对主标签 */
+	.setting-item p.description {
+		font-size: 0.9em;
+		/* 减小标签和描述文字 */
+	}
+
+	.radio-group label {
+		font-size: 0.9em;
+		margin-right: 0.8em;
+	}
+
+	/* 减小单选按钮文字和间距 */
+	button.font-size-button {
+		font-size: 0.85em;
+		padding: 0.4em 0.8em;
+	}
+
+	/* 减小字体按钮 */
+	.subtitle-preview {
+		padding: 0.8em;
+	}
+
+	/* 调整页面标题和简介 */
+	.page-title {
+		font-size: 1.6em;
+	}
+
+	/* 减小主标题 */
+	.page-intro {
+		font-size: 1em;
+		margin-bottom: 2em;
+	}
+
+	/* 减小简介文字和间距 */
+}
