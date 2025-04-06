@@ -1,317 +1,315 @@
-// js/script.js - Global site scripts
+// js/script.js - 全局站点脚本 (适配 settings.html 按钮)
 
 document.addEventListener('DOMContentLoaded', () => {
 
-	// --- Theme Switching Logic (Global) ---
-	const themeRadios = document.querySelectorAll(
-		'input[name="theme"]'); // Used for initialization & OS change sync
+	// --- 全局变量和核心主题函数 ---
 	const htmlElement = document.documentElement;
 	const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 
-	const applyTheme = (theme) => { // Needed globally
-		if (theme === 'light') htmlElement.setAttribute('data-theme', 'light');
-		else if (theme === 'dark') htmlElement.setAttribute('data-theme', 'dark');
-		else htmlElement.removeAttribute('data-theme');
-	};
-	const saveThemePreference = (theme) => { // Needed globally by settings page interaction
-		localStorage.setItem('user_theme', theme);
+	// 应用主题 (根据 light/dark/system 偏好)
+	const applyTheme = (preference) => {
+		let themeToApply;
+		if (preference === 'light' || preference === 'dark') {
+			themeToApply = preference;
+		} else { // 'system' or null/invalid
+			themeToApply = prefersDarkScheme.matches ? 'dark' : 'light';
+		}
+		htmlElement.setAttribute('data-theme', themeToApply);
+		console.log(`Theme applied: ${themeToApply} (Preference: ${preference || 'system'})`);
+		updateThemeButtonsState(themeToApply); // 更新首页按钮状态
+		updateThemePrefButtonsState(preference || 'system'); // 更新设置页主题偏好按钮状态
 	};
 
-	// --- Subtitle Font Size Logic (Global Application) ---
-	const subtitleSizeRadios = document.querySelectorAll(
-		'input[name="subtitleSize"]'); // Needed for settings page interaction check
+	// 保存用户的主题偏好 (light/dark/system)
+	const saveThemePreference = (preference) => {
+		localStorage.setItem('user_theme', preference);
+	};
+
+	// 更新首页按钮激活状态 (基于实际应用的主题: light/dark)
+	const lightModeButton = document.getElementById('switch-to-light');
+	const darkModeButton = document.getElementById('switch-to-dark');
+	const updateThemeButtonsState = (appliedTheme) => {
+		if (lightModeButton && darkModeButton) {
+			requestAnimationFrame(() => {
+				lightModeButton.classList.toggle('active', appliedTheme === 'light');
+				darkModeButton.classList.toggle('active', appliedTheme === 'dark');
+			});
+		}
+	};
+
+	// 更新设置页主题偏好按钮状态 (基于用户偏好: light/dark/system)
+	const themePrefButtons = document.querySelectorAll('.theme-pref-button'); // 使用新按钮的选择器
+	const updateThemePrefButtonsState = (preference) => {
+		if (themePrefButtons.length > 0) {
+			themePrefButtons.forEach(btn => {
+				btn.classList.toggle('active', btn.dataset.themePref === preference);
+			});
+		}
+	};
+
+	// --- 字幕字体大小逻辑 ---
+	const subtitleSizeButtons = document.querySelectorAll('.subtitle-size-button'); // 新按钮的选择器
 	const subtitleSizeMap = {
 		'small': '0.85em',
 		'medium': '1em',
 		'large': '1.2em',
 		'extra-large': '1.4em'
 	};
-	const applySubtitleSize = (sizeValue) => { // Needed globally
+	const applySubtitleSize = (sizeValue) => {
 		const cssValue = subtitleSizeMap[sizeValue] || subtitleSizeMap['medium'];
 		htmlElement.style.setProperty('--subtitle-font-size', cssValue);
 	};
-	const saveSubtitleSizePreference = (sizeValue) => { // Needed globally by settings page interaction
+	const saveSubtitleSizePreference = (sizeValue) => {
 		localStorage.setItem('user_subtitle_size', sizeValue);
 	};
-	const loadSubtitleSizePreference = () => { // Needed globally on load
-		const savedSize = localStorage.getItem('user_subtitle_size') || 'medium';
-		applySubtitleSize(savedSize);
-		// Update radios only if on settings page
-		if (subtitleSizeRadios.length > 0) {
-			let found = false;
-			subtitleSizeRadios.forEach(r => {
-				r.checked = (r.value === savedSize);
-				if (r.checked) found = true;
+	// 更新字幕大小按钮激活状态
+	const updateSubtitleSizeButtonsState = (sizeValue) => {
+		if (subtitleSizeButtons.length > 0) {
+			subtitleSizeButtons.forEach(btn => {
+				btn.classList.toggle('active', btn.dataset.size === sizeValue);
 			});
-			if (!found) {
-				const m = document.querySelector('input[name="subtitleSize"][value="medium"]');
-				if (m) m.checked = true;
-			}
 		}
 	};
+	const loadSubtitleSizePreference = () => {
+		const savedSize = localStorage.getItem('user_subtitle_size') || 'medium';
+		applySubtitleSize(savedSize);
+		updateSubtitleSizeButtonsState(savedSize); // 更新按钮状态，而非 radio
+	};
 
-	// --- Global Font Size Logic (Global Application) ---
-	const fontSizeButtons = document.querySelectorAll(
-		'.font-size-button'); // Needed for settings page interaction check
+	// --- 全局字体大小逻辑 (按钮结构已存在, 只需确保类名正确) ---
+	const fontSizeButtons = document.querySelectorAll('.font-size-button'); // settings.html 中的按钮
 	const globalFontSizeMap = {
 		'small': 0.85,
 		'default': 1,
 		'large': 1.15,
 		'extra-large': 1.3
 	};
-	const applyGlobalFontSize = (sizeLevel) => { // Needed globally
+	const applyGlobalFontSize = (sizeLevel) => {
 		const scaleValue = globalFontSizeMap[sizeLevel] || globalFontSizeMap['default'];
 		htmlElement.style.setProperty('--global-font-scale', scaleValue);
-		// Update buttons only if on settings page
 		if (fontSizeButtons.length > 0) {
 			fontSizeButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.size === sizeLevel));
 		}
-	};
-	const saveGlobalFontSizePreference = (sizeLevel) => { // Needed globally by settings page interaction
+	}; // 这里的更新逻辑不变
+	const saveGlobalFontSizePreference = (sizeLevel) => {
 		localStorage.setItem('user_global_font_size_level', sizeLevel);
 	};
-	const loadGlobalFontSizePreference = () => { // Needed globally on load
+	const loadGlobalFontSizePreference = () => {
 		const savedLevel = localStorage.getItem('user_global_font_size_level') || 'default';
 		applyGlobalFontSize(savedLevel);
 	};
 
 
-	// --- Initialization (Global Settings Application) ---
+	// --- 初始化 ---
 	loadSubtitleSizePreference();
 	loadGlobalFontSizePreference();
-	// Initialize theme radio state only if on settings page
-	if (themeRadios.length > 0) {
-		const initialTheme = localStorage.getItem('user_theme') || 'system';
-		let found = false;
-		themeRadios.forEach(r => {
-			r.checked = (r.value === initialTheme);
-			if (r.checked) found = true;
+	const initialUserPreference = localStorage.getItem('user_theme') || 'system';
+	applyTheme(initialUserPreference); // 应用初始主题并更新所有相关UI
+
+
+	// --- 事件监听器 ---
+
+	// 1. 首页主题按钮点击 (保持不变)
+	if (lightModeButton) {
+		lightModeButton.addEventListener('click', () => {
+			saveThemePreference('light');
+			applyTheme('light');
+			lightModeButton.blur();
 		});
-		if (!found) {
-			const s = document.querySelector('input[name="theme"][value="system"]');
-			if (s) s.checked = true;
-		}
+	}
+	if (darkModeButton) {
+		darkModeButton.addEventListener('click', () => {
+			saveThemePreference('dark');
+			applyTheme('dark');
+			darkModeButton.blur();
+		});
 	}
 
-
-	// --- Event Listeners (Global and Conditional) ---
-
-	// Theme radio changes (ONLY if radios exist - Settings Page)
-	if (themeRadios.length > 0) {
-		themeRadios.forEach(radio => {
-			radio.addEventListener('change', (event) => {
-				const selectedPreference = event.target.value;
-				if (selectedPreference === 'system') {
-					const currentSystemTheme = prefersDarkScheme.matches ? 'dark' : 'light';
-					applyTheme(currentSystemTheme);
-				} else {
+	// 2. 设置页面主题偏好按钮点击 (修改)
+	if (themePrefButtons.length > 0) {
+		themePrefButtons.forEach(button => {
+			button.addEventListener('click', () => {
+				const selectedPreference = button.dataset.themePref;
+				if (selectedPreference) {
+					saveThemePreference(selectedPreference);
 					applyTheme(selectedPreference);
+					button.blur();
 				}
-				saveThemePreference(selectedPreference);
 			});
 		});
 	}
 
-	// Listen for OS theme changes (Global)
-	prefersDarkScheme.addEventListener('change', (event) => {
-		const currentPreference = localStorage.getItem('user_theme') || 'system';
-		if (currentPreference === 'system') {
-			const newSystemTheme = event.matches ? 'dark' : 'light';
-			applyTheme(newSystemTheme);
-			// Update radio state if on settings page
-			if (themeRadios.length > 0) {
-				const systemRadio = document.querySelector('input[name="theme"][value="system"]');
-				if (systemRadio) systemRadio.checked = true;
-			}
+	// 3. 监听操作系统主题变化 (保持不变)
+	prefersDarkScheme.addEventListener('change', () => {
+		const pref = localStorage.getItem('user_theme') || 'system';
+		if (pref === 'system') {
+			console.log("OS theme changed...");
+			applyTheme('system');
 		}
 	});
 
-	// Subtitle size radio changes (ONLY if radios exist - Settings Page)
-	if (subtitleSizeRadios.length > 0) {
-		subtitleSizeRadios.forEach(radio => {
-			radio.addEventListener('change', (event) => {
-				const selectedSize = event.target.value;
-				applySubtitleSize(selectedSize);
-				saveSubtitleSizePreference(selectedSize);
-			});
-		});
-	}
-
-	// Global font size button clicks (ONLY if buttons exist - Settings Page)
-	if (fontSizeButtons.length > 0) {
-		fontSizeButtons.forEach(button => {
+	// 4. 字幕大小按钮点击 (修改)
+	if (subtitleSizeButtons.length > 0) {
+		subtitleSizeButtons.forEach(button => {
 			button.addEventListener('click', () => {
-				const selectedLevel = button.dataset.size;
-				if (selectedLevel) {
-					applyGlobalFontSize(selectedLevel);
-					saveGlobalFontSizePreference(selectedLevel);
+				const selectedSize = button.dataset.size;
+				if (selectedSize) {
+					applySubtitleSize(selectedSize);
+					saveSubtitleSizePreference(selectedSize);
+					updateSubtitleSizeButtonsState(selectedSize);
+					button.blur();
 				}
 			});
 		});
 	}
 
-	// --- Settings Dropdown Menu Logic (Global Component) ---
+	// 5. 全局字体大小按钮点击 (保持不变, 确保 HTML 中 class 正确)
+	if (fontSizeButtons.length > 0) {
+		fontSizeButtons.forEach(button => {
+			button.addEventListener('click', () => {
+				const level = button.dataset.size;
+				if (level) {
+					applyGlobalFontSize(level);
+					saveGlobalFontSizePreference(level);
+					button.blur();
+				}
+			});
+		});
+	}
+
+	// 6. 设置下拉菜单逻辑 (保持不变)
 	const settingsButton = document.getElementById('settings-button');
 	const settingsMenu = document.getElementById('settings-menu');
-
-	console.log("查找设置按钮:", settingsButton);
-	console.log("查找设置菜单:", settingsMenu);
-
-	if (settingsButton && settingsMenu) { // Check elements exist
-		settingsButton.addEventListener('click', (event) => {
-			console.log('设置按钮被点击！'); // 确认点击
-			event.stopPropagation();
-
-			console.log("当前菜单元素:", settingsMenu);
-			console.log("菜单是否包含 active 类 (切换前):", settingsMenu.classList.contains('active'));
-
-			const isExpanded = settingsButton.getAttribute('aria-expanded') === 'true';
-			settingsMenu.classList.toggle('active');
-			console.log("菜单是否包含 active 类 (切换后):", settingsMenu.classList.contains('active'));
-			settingsButton.setAttribute('aria-expanded', String(!isExpanded));
+	if (settingsButton && settingsMenu) {
+		/* ... (设置菜单逻辑折叠，保持不变) ... */
+		settingsButton.addEventListener('click', (e) => {
+			e.stopPropagation();
+			const t = settingsButton.getAttribute("aria-expanded") === "true";
+			settingsMenu.classList.toggle("active");
+			settingsButton.setAttribute("aria-expanded", String(!t))
 		});
-		settingsMenu.querySelectorAll('a').forEach(link => {
-			link.addEventListener('click', () => {
-				settingsMenu.classList.remove('active');
-				settingsButton.setAttribute('aria-expanded', 'false');
-			});
+		settingsMenu.querySelectorAll("a").forEach(e => {
+			e.addEventListener("click", () => {
+				settingsMenu.classList.remove("active");
+				settingsButton.setAttribute("aria-expanded", "false")
+			})
 		});
-		window.addEventListener('click', (event) => {
-			if (settingsMenu.classList.contains('active') && !settingsButton.contains(event.target) && !
-				settingsMenu.contains(event.target)) {
-				settingsMenu.classList.remove('active');
-				settingsButton.setAttribute('aria-expanded', 'false');
-			}
+		window.addEventListener("click", e => {
+			settingsMenu.classList.contains("active") && !settingsButton.contains(e.target) && !
+				settingsMenu.contains(e.target) && (settingsMenu.classList.remove("active"),
+					settingsButton.setAttribute("aria-expanded", "false"))
 		});
-		window.addEventListener('keydown', (event) => {
-			if (event.key === 'Escape' && settingsMenu.classList.contains('active')) {
-				settingsMenu.classList.remove('active');
-				settingsButton.setAttribute('aria-expanded', 'false');
-				settingsButton.focus();
-			}
-		});
+		window.addEventListener("keydown", e => {
+			e.key === "Escape" && settingsMenu.classList.contains("active") && (settingsMenu.classList
+				.remove("active"), settingsButton.setAttribute("aria-expanded", "false"),
+				settingsButton.focus())
+		})
 	} else {
-		// 这些错误信息之前应该没出现，因为按钮点击能打印
-		if (!settingsButton) console.error("Settings button (#settings-button) not found!");
-		if (!settingsMenu) console.error("Settings menu (#settings-menu) not found!");
+		!settingsButton && console.error("未找到设置按钮 (#settings-button)!");
+		!settingsMenu && console.error("未找到设置菜单 (#settings-menu)!")
 	}
-	// --- Resource Card Click Logic (Conditional - Resources Page Specific) ---
-	const resourceGrid = document.querySelector('.resource-grid'); // Check if resource grid exists
+
+	// 7. 资源卡片点击逻辑 (保持不变)
+	const resourceGrid = document.querySelector('.resource-grid');
 	if (resourceGrid) {
-		const resourceCards = resourceGrid.querySelectorAll('.resource-card:not(.placeholder-card)');
-		resourceCards.forEach(card => {
-			const url = card.dataset.url;
-			if (url) {
-				card.addEventListener('click', () => window.open(url, '_blank', 'noopener,noreferrer'));
-				card.addEventListener('keydown', (event) => {
-					if (event.key === 'Enter' || event.key === ' ') {
-						event.preventDefault();
-						window.open(url, '_blank', 'noopener,noreferrer');
+		/* ... (资源卡片逻辑折叠，保持不变) ... */
+		const o = resourceGrid.querySelectorAll(".resource-card:not(.placeholder-card)");
+		o.forEach(e => {
+			const t = e.dataset.url;
+			t ? (e.addEventListener("click", () => window.open(t, "_blank", "noopener,noreferrer")), e
+				.addEventListener("keydown", o => {
+					if (o.key === "Enter" || o.key === " ") {
+						o.preventDefault();
+						window.open(t, "_blank", "noopener,noreferrer")
 					}
-				});
-				card.setAttribute('tabindex', '0');
-				card.setAttribute('role', 'link');
-			} else {
-				console.warn("Resource card missing data-url:", card);
-				card.removeAttribute('tabindex');
-			}
-		});
+				}), e.setAttribute("tabindex", "0"), e.setAttribute("role", "link")) : (e
+				.removeAttribute("tabindex"), e.style.cursor = "default")
+		})
 	}
 
 
-	// --- Dynamic Decoration Logic (Global Background Animation) ---
+	// --- 动态背景装饰逻辑 (保持不变) ---
 	const decorationContainer = document.querySelector('.dynamic-decorations');
-	const shapes = [];
-	const numberOfShapes = 3; // Adjusted number
-	const shapeTypes = ['circle', 'square', 'triangle'];
-	const shapeMinSize = 25;
-	const shapeMaxSize = 60;
-	const friction = 0.98;
-	const baseSpeed = 0.1;
-	const turbulence = 0.03;
-	const padding = 10;
-	const pushBackForce = 0.01;
-
-	const initShapes = () => { // Initialize shapes
-		if (!decorationContainer) return;
-		decorationContainer.innerHTML = '';
-		shapes.length = 0;
-		const containerWidth = decorationContainer.offsetWidth;
-		const containerHeight = decorationContainer.offsetHeight;
-		if (containerWidth === 0 || containerHeight === 0) {
-			console.warn("Decoration container zero dimensions.");
-		}
-		for (let i = 0; i < numberOfShapes; i++) {
-			const shapeElement = document.createElement('div');
-			const type = shapeTypes[Math.floor(Math.random() * shapeTypes.length)];
-			shapeElement.classList.add('deco-shape', type);
-			const size = Math.random() * (shapeMaxSize - shapeMinSize) + shapeMinSize;
-			shapeElement.style.width = `${size}px`;
-			shapeElement.style.height = `${size}px`;
-			const x = Math.random() * containerWidth;
-			const y = Math.random() * containerHeight;
-			const vx = (Math.random() - 0.5) * baseSpeed * 2;
-			const vy = (Math.random() - 0.5) * baseSpeed * 2;
-			shapeElement.style.left = `0px`;
-			shapeElement.style.top = `0px`;
-			shapeElement.style.transform = `translate(${x - size / 2}px, ${y - size / 2}px)`;
-			shapeElement.style.opacity = (Math.random() * 0.1 + 0.08).toFixed(2);
-			decorationContainer.appendChild(shapeElement);
-			shapes.push({
-				element: shapeElement,
-				x: x,
-				y: y,
-				vx: vx,
-				vy: vy,
-				size: size
+	if (decorationContainer) {
+		const shapes = [];
+		const numberOfShapes = 3;
+		const shapeTypes = ['circle', 'square', 'triangle'];
+		const shapeMinSize = 25;
+		const shapeMaxSize = 60;
+		const friction = 0.98;
+		const baseSpeed = 0.1;
+		const turbulence = 0.03;
+		const padding = 10;
+		const pushBackForce = 0.01;
+		const initShapes = () => {
+			if (!decorationContainer) return;
+			decorationContainer.innerHTML = '';
+			shapes.length = 0;
+			const cw = decorationContainer.offsetWidth;
+			const ch = decorationContainer.offsetHeight;
+			if (cw === 0 || ch === 0) return;
+			for (let i = 0; i < numberOfShapes; i++) {
+				const shapeEl = document.createElement('div');
+				const type = shapeTypes[Math.floor(Math.random() * shapeTypes.length)];
+				shapeEl.classList.add('deco-shape', type);
+				const size = Math.random() * (shapeMaxSize - shapeMinSize) + shapeMinSize;
+				shapeEl.style.width = `${size}px`;
+				shapeEl.style.height = `${size}px`;
+				const x = Math.random() * cw;
+				const y = Math.random() * ch;
+				const vx = (Math.random() - 0.5) * baseSpeed * 2;
+				const vy = (Math.random() - 0.5) * baseSpeed * 2;
+				shapeEl.style.left = `0px`;
+				shapeEl.style.top = `0px`;
+				shapeEl.style.transform = `translate(${x - size / 2}px, ${y - size / 2}px)`;
+				shapeEl.style.opacity = (Math.random() * 0.1 + 0.08).toFixed(2);
+				decorationContainer.appendChild(shapeEl);
+				shapes.push({
+					element: shapeEl,
+					x: x,
+					y: y,
+					vx: vx,
+					vy: vy,
+					size: size
+				});
+			}
+		};
+		const updateAnimation = () => {
+			if (!decorationContainer || shapes.length === 0) return;
+			const cw = decorationContainer.offsetWidth;
+			const ch = decorationContainer.offsetHeight;
+			shapes.forEach(s => {
+				s.vx += (Math.random() - 0.5) * turbulence;
+				s.vy += (Math.random() - 0.5) * turbulence;
+				const speed = Math.sqrt(s.vx * s.vx + s.vy * s.vy);
+				const maxSpeed = baseSpeed * 2.0;
+				if (speed > maxSpeed) {
+					s.vx *= maxSpeed / speed;
+					s.vy *= maxSpeed / speed;
+				}
+				s.vx *= friction;
+				s.vy *= friction;
+				s.x += s.vx;
+				s.y += s.vy;
+				if (s.x - s.size / 2 < padding) {
+					s.vx += pushBackForce * (padding - (s.x - s.size / 2));
+					if (s.x - s.size / 2 < 0) s.x = s.size / 2 + 1;
+				} else if (s.x + s.size / 2 > cw - padding) {
+					s.vx -= pushBackForce * ((s.x + s.size / 2) - (cw - padding));
+					if (s.x + s.size / 2 > cw) s.x = cw - s.size / 2 - 1;
+				}
+				if (s.y - s.size / 2 < padding) {
+					s.vy += pushBackForce * (padding - (s.y - s.size / 2));
+					if (s.y - s.size / 2 < 0) s.y = s.size / 2 + 1;
+				} else if (s.y + s.size / 2 > ch - padding) {
+					s.vy -= pushBackForce * ((s.y + s.size / 2) - (ch - padding));
+					if (s.y + s.size / 2 > ch) s.y = ch - s.size / 2 - 1;
+				}
+				s.element.style.transform =
+					`translate(${s.x - s.size / 2}px, ${s.y - s.size / 2}px)`;
 			});
-		}
-	};
-
-	const updateAnimation = () => { // Animation loop
-		if (!decorationContainer || shapes.length === 0) return;
-		const containerWidth = decorationContainer.offsetWidth;
-		const containerHeight = decorationContainer.offsetHeight;
-		shapes.forEach(shape => {
-			shape.vx += (Math.random() - 0.5) * turbulence;
-			shape.vy += (Math.random() - 0.5) * turbulence;
-			const speed = Math.sqrt(shape.vx * shape.vx + shape.vy * shape.vy);
-			const maxSpeed = baseSpeed * 2.0;
-			if (speed > maxSpeed) {
-				shape.vx *= maxSpeed / speed;
-				shape.vy *= maxSpeed / speed;
-			}
-			shape.vx *= friction;
-			shape.vy *= friction;
-			shape.x += shape.vx;
-			shape.y += shape.vy;
-			// Boundary Handling
-			if (shape.x - shape.size / 2 < padding) {
-				shape.vx += pushBackForce * (padding - (shape.x - shape.size / 2));
-				if (shape.x - shape.size / 2 < 0) shape.x = shape.size / 2 + 1;
-			} else if (shape.x + shape.size / 2 > containerWidth - padding) {
-				shape.vx -= pushBackForce * ((shape.x + shape.size / 2) - (containerWidth -
-					padding));
-				if (shape.x + shape.size / 2 > containerWidth) shape.x = containerWidth - shape
-					.size / 2 - 1;
-			}
-			if (shape.y - shape.size / 2 < padding) {
-				shape.vy += pushBackForce * (padding - (shape.y - shape.size / 2));
-				if (shape.y - shape.size / 2 < 0) shape.y = shape.size / 2 + 1;
-			} else if (shape.y + shape.size / 2 > containerHeight - padding) {
-				shape.vy -= pushBackForce * ((shape.y + shape.size / 2) - (containerHeight -
-					padding));
-				if (shape.y + shape.size / 2 > containerHeight) shape.y = containerHeight - shape
-					.size / 2 - 1;
-			}
-			shape.element.style.transform =
-				`translate(${shape.x - shape.size / 2}px, ${shape.y - shape.size / 2}px)`;
-		});
-		requestAnimationFrame(updateAnimation);
-	};
-
-	// --- Initialization and Start for Dynamic Decoration ---
-	if (decorationContainer) { // Start animation if container exists
+			requestAnimationFrame(updateAnimation);
+		};
 		setTimeout(() => {
 			initShapes();
 			if (shapes.length > 0) requestAnimationFrame(updateAnimation);
