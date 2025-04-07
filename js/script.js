@@ -1,54 +1,65 @@
-// js/script.js - 全局站点脚本 (适配 settings.html 按钮)
+// js/script.js 
 
 document.addEventListener('DOMContentLoaded', () => {
 
-	// --- 全局变量和核心主题函数 ---
+	// --- 全局变量 ---
 	const htmlElement = document.documentElement;
 	const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 
-	// 应用主题 (根据 light/dark/system 偏好)
+	// --- 获取可能存在的 UI 元素 ---
+	// 首页按钮
+	const lightModeButton = document.getElementById('switch-to-light');
+	const darkModeButton = document.getElementById('switch-to-dark');
+	// 设置页主题按钮
+	const themePrefButtons = document.querySelectorAll('.theme-pref-button');
+	// 设置页字幕按钮
+	const subtitleSizeButtons = document.querySelectorAll('.subtitle-size-button');
+	// 设置页字体按钮
+	const fontSizeButtons = document.querySelectorAll('.font-size-button');
+	// 设置菜单
+	const settingsButton = document.getElementById('settings-button');
+	const settingsMenu = document.getElementById('settings-menu');
+	// 资源页
+	const resourceGrid = document.querySelector('.resource-grid');
+	// 动态装饰
+	const decorationContainer = document.querySelector('.dynamic-decorations');
+
+
+	// --- 核心主题应用与状态更新函数 ---
 	const applyTheme = (preference) => {
+		// 1. 确定实际应用的主题 (light 或 dark)
 		let themeToApply;
 		if (preference === 'light' || preference === 'dark') {
 			themeToApply = preference;
 		} else { // 'system' or null/invalid
 			themeToApply = prefersDarkScheme.matches ? 'dark' : 'light';
 		}
+
+		// 2. 应用 data-theme 属性
 		htmlElement.setAttribute('data-theme', themeToApply);
 		console.log(`Theme applied: ${themeToApply} (Preference: ${preference || 'system'})`);
-		updateThemeButtonsState(themeToApply); // 更新首页按钮状态
-		updateThemePrefButtonsState(preference || 'system'); // 更新设置页主题偏好按钮状态
-	};
 
-	// 保存用户的主题偏好 (light/dark/system)
-	const saveThemePreference = (preference) => {
-		localStorage.setItem('user_theme', preference);
-	};
-
-	// 更新首页按钮激活状态 (基于实际应用的主题: light/dark)
-	const lightModeButton = document.getElementById('switch-to-light');
-	const darkModeButton = document.getElementById('switch-to-dark');
-	const updateThemeButtonsState = (appliedTheme) => {
+		// 3. 立即更新所有相关按钮的激活状态
+		// 更新首页按钮
 		if (lightModeButton && darkModeButton) {
-			requestAnimationFrame(() => {
-				lightModeButton.classList.toggle('active', appliedTheme === 'light');
-				darkModeButton.classList.toggle('active', appliedTheme === 'dark');
-			});
+			lightModeButton.classList.toggle('active', themeToApply === 'light');
+			darkModeButton.classList.toggle('active', themeToApply === 'dark');
 		}
-	};
-
-	// 更新设置页主题偏好按钮状态 (基于用户偏好: light/dark/system)
-	const themePrefButtons = document.querySelectorAll('.theme-pref-button'); // 使用新按钮的选择器
-	const updateThemePrefButtonsState = (preference) => {
+		// 更新设置页主题偏好按钮 (基于用户的偏好 preference)
 		if (themePrefButtons.length > 0) {
 			themePrefButtons.forEach(btn => {
-				btn.classList.toggle('active', btn.dataset.themePref === preference);
+				btn.classList.toggle('active', btn.dataset.themePref === (preference || 'system'));
 			});
 		}
+	};
+
+	// --- 保存主题偏好 ---
+	const saveThemePreference = (preference) => {
+		localStorage.setItem('user_theme', preference);
+		console.log(`Theme preference saved: ${preference}`);
 	};
 
 	// --- 字幕字体大小逻辑 ---
-	const subtitleSizeButtons = document.querySelectorAll('.subtitle-size-button'); // 新按钮的选择器
 	const subtitleSizeMap = {
 		'small': '0.85em',
 		'medium': '1em',
@@ -62,7 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	const saveSubtitleSizePreference = (sizeValue) => {
 		localStorage.setItem('user_subtitle_size', sizeValue);
 	};
-	// 更新字幕大小按钮激活状态
 	const updateSubtitleSizeButtonsState = (sizeValue) => {
 		if (subtitleSizeButtons.length > 0) {
 			subtitleSizeButtons.forEach(btn => {
@@ -73,24 +83,26 @@ document.addEventListener('DOMContentLoaded', () => {
 	const loadSubtitleSizePreference = () => {
 		const savedSize = localStorage.getItem('user_subtitle_size') || 'medium';
 		applySubtitleSize(savedSize);
-		updateSubtitleSizeButtonsState(savedSize); // 更新按钮状态，而非 radio
+		updateSubtitleSizeButtonsState(savedSize);
 	};
 
-	// --- 全局字体大小逻辑 (按钮结构已存在, 只需确保类名正确) ---
-	const fontSizeButtons = document.querySelectorAll('.font-size-button'); // settings.html 中的按钮
+	// --- 全局字体大小逻辑 ---
 	const globalFontSizeMap = {
 		'small': 0.85,
 		'default': 1,
 		'large': 1.15,
 		'extra-large': 1.3
 	};
-	const applyGlobalFontSize = (sizeLevel) => {
-		const scaleValue = globalFontSizeMap[sizeLevel] || globalFontSizeMap['default'];
-		htmlElement.style.setProperty('--global-font-scale', scaleValue);
+	const updateGlobalFontSizeButtonsState = (sizeLevel) => {
 		if (fontSizeButtons.length > 0) {
 			fontSizeButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.size === sizeLevel));
 		}
-	}; // 这里的更新逻辑不变
+	};
+	const applyGlobalFontSize = (sizeLevel) => {
+		const scaleValue = globalFontSizeMap[sizeLevel] || globalFontSizeMap['default'];
+		htmlElement.style.setProperty('--global-font-scale', scaleValue);
+		updateGlobalFontSizeButtonsState(sizeLevel);
+	};
 	const saveGlobalFontSizePreference = (sizeLevel) => {
 		localStorage.setItem('user_global_font_size_level', sizeLevel);
 	};
@@ -99,17 +111,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		applyGlobalFontSize(savedLevel);
 	};
 
-
 	// --- 初始化 ---
-	loadSubtitleSizePreference();
-	loadGlobalFontSizePreference();
+	loadSubtitleSizePreference(); // 加载并应用字幕大小，更新按钮状态
+	loadGlobalFontSizePreference(); // 加载并应用全局字体大小，更新按钮状态
 	const initialUserPreference = localStorage.getItem('user_theme') || 'system';
-	applyTheme(initialUserPreference); // 应用初始主题并更新所有相关UI
-
+	applyTheme(initialUserPreference); // 应用初始主题并更新所有主题按钮状态
 
 	// --- 事件监听器 ---
 
-	// 1. 首页主题按钮点击 (保持不变)
+	// 1. 首页主题按钮
 	if (lightModeButton) {
 		lightModeButton.addEventListener('click', () => {
 			saveThemePreference('light');
@@ -125,45 +135,45 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	}
 
-	// 2. 设置页面主题偏好按钮点击 (修改)
+	// 2. 设置页主题偏好按钮
 	if (themePrefButtons.length > 0) {
 		themePrefButtons.forEach(button => {
 			button.addEventListener('click', () => {
-				const selectedPreference = button.dataset.themePref;
-				if (selectedPreference) {
-					saveThemePreference(selectedPreference);
-					applyTheme(selectedPreference);
+				const pref = button.dataset.themePref;
+				if (pref) {
+					saveThemePreference(pref);
+					applyTheme(pref);
 					button.blur();
 				}
 			});
 		});
 	}
 
-	// 3. 监听操作系统主题变化 (保持不变)
+	// 3. 操作系统主题变化
 	prefersDarkScheme.addEventListener('change', () => {
 		const pref = localStorage.getItem('user_theme') || 'system';
 		if (pref === 'system') {
-			console.log("OS theme changed...");
+			console.log("OS theme changed, re-applying system preference...");
 			applyTheme('system');
 		}
 	});
 
-	// 4. 字幕大小按钮点击 (修改)
+	// 4. 字幕大小按钮
 	if (subtitleSizeButtons.length > 0) {
 		subtitleSizeButtons.forEach(button => {
 			button.addEventListener('click', () => {
-				const selectedSize = button.dataset.size;
-				if (selectedSize) {
-					applySubtitleSize(selectedSize);
-					saveSubtitleSizePreference(selectedSize);
-					updateSubtitleSizeButtonsState(selectedSize);
+				const size = button.dataset.size;
+				if (size) {
+					applySubtitleSize(size);
+					saveSubtitleSizePreference(size);
+					updateSubtitleSizeButtonsState(size);
 					button.blur();
 				}
 			});
 		});
 	}
 
-	// 5. 全局字体大小按钮点击 (保持不变, 确保 HTML 中 class 正确)
+	// 5. 全局字体大小按钮
 	if (fontSizeButtons.length > 0) {
 		fontSizeButtons.forEach(button => {
 			button.addEventListener('click', () => {
@@ -177,11 +187,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	}
 
-	// 6. 设置下拉菜单逻辑 (保持不变)
-	const settingsButton = document.getElementById('settings-button');
-	const settingsMenu = document.getElementById('settings-menu');
+	// 6. 设置下拉菜单
 	if (settingsButton && settingsMenu) {
-		/* ... (设置菜单逻辑折叠，保持不变) ... */
+		/* ... (逻辑不变) ... */
 		settingsButton.addEventListener('click', (e) => {
 			e.stopPropagation();
 			const t = settingsButton.getAttribute("aria-expanded") === "true";
@@ -209,10 +217,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		!settingsMenu && console.error("未找到设置菜单 (#settings-menu)!")
 	}
 
-	// 7. 资源卡片点击逻辑 (保持不变)
-	const resourceGrid = document.querySelector('.resource-grid');
+	// 7. 资源卡片点击
 	if (resourceGrid) {
-		/* ... (资源卡片逻辑折叠，保持不变) ... */
+		/* ... (逻辑不变) ... */
 		const o = resourceGrid.querySelectorAll(".resource-card:not(.placeholder-card)");
 		o.forEach(e => {
 			const t = e.dataset.url;
@@ -227,93 +234,91 @@ document.addEventListener('DOMContentLoaded', () => {
 		})
 	}
 
-
-	// --- 动态背景装饰逻辑 (保持不变) ---
-	const decorationContainer = document.querySelector('.dynamic-decorations');
+	// 8. 动态背景装饰
 	if (decorationContainer) {
-		const shapes = [];
-		const numberOfShapes = 3;
-		const shapeTypes = ['circle', 'square', 'triangle'];
-		const shapeMinSize = 25;
-		const shapeMaxSize = 60;
-		const friction = 0.98;
-		const baseSpeed = 0.1;
-		const turbulence = 0.03;
-		const padding = 10;
-		const pushBackForce = 0.01;
-		const initShapes = () => {
-			if (!decorationContainer) return;
-			decorationContainer.innerHTML = '';
-			shapes.length = 0;
-			const cw = decorationContainer.offsetWidth;
-			const ch = decorationContainer.offsetHeight;
-			if (cw === 0 || ch === 0) return;
-			for (let i = 0; i < numberOfShapes; i++) {
-				const shapeEl = document.createElement('div');
-				const type = shapeTypes[Math.floor(Math.random() * shapeTypes.length)];
-				shapeEl.classList.add('deco-shape', type);
-				const size = Math.random() * (shapeMaxSize - shapeMinSize) + shapeMinSize;
-				shapeEl.style.width = `${size}px`;
-				shapeEl.style.height = `${size}px`;
-				const x = Math.random() * cw;
-				const y = Math.random() * ch;
-				const vx = (Math.random() - 0.5) * baseSpeed * 2;
-				const vy = (Math.random() - 0.5) * baseSpeed * 2;
-				shapeEl.style.left = `0px`;
-				shapeEl.style.top = `0px`;
-				shapeEl.style.transform = `translate(${x - size / 2}px, ${y - size / 2}px)`;
-				shapeEl.style.opacity = (Math.random() * 0.1 + 0.08).toFixed(2);
-				decorationContainer.appendChild(shapeEl);
-				shapes.push({
-					element: shapeEl,
-					x: x,
-					y: y,
-					vx: vx,
-					vy: vy,
-					size: size
+		/* ... (逻辑不变) ... */
+		const o = [],
+			n = 3,
+			r = ["circle", "square", "triangle"],
+			a = 25,
+			i = 60,
+			l = 0.98,
+			s = 0.1,
+			c = 0.03,
+			d = 10,
+			u = 0.01,
+			m = () => {
+				if (!decorationContainer) return;
+				decorationContainer.innerHTML = "";
+				o.length = 0;
+				const e = decorationContainer.offsetWidth,
+					t = decorationContainer.offsetHeight;
+				if (e === 0 || t === 0) return;
+				for (let n = 0; n < 3; n++) {
+					const i = document.createElement("div"),
+						l = r[Math.floor(Math.random() * r.length)];
+					i.classList.add("deco-shape", l);
+					const c = Math.random() * (60 - 25) + 25;
+					i.style.width = `${c}px`;
+					i.style.height = `${c}px`;
+					const d = Math.random() * e,
+						u = Math.random() * t,
+						m = (Math.random() - 0.5) * s * 2,
+						h = (Math.random() - 0.5) * s * 2;
+					i.style.left = "0px";
+					i.style.top = "0px";
+					i.style.transform = `translate(${d-c/2}px, ${u-c/2}px)`;
+					i.style.opacity = (Math.random() * 0.1 + 0.08).toFixed(2);
+					decorationContainer.appendChild(i);
+					o.push({
+						element: i,
+						x: d,
+						y: u,
+						vx: m,
+						vy: h,
+						size: c
+					})
+				}
+			},
+			p = () => {
+				if (!decorationContainer || o.length === 0) return;
+				const e = decorationContainer.offsetWidth,
+					t = decorationContainer.offsetHeight;
+				o.forEach(o => {
+					o.vx += (Math.random() - 0.5) * c;
+					o.vy += (Math.random() - 0.5) * c;
+					const n = Math.sqrt(o.vx * o.vx + o.vy * o.vy);
+					const a = s * 2;
+					if (n > a) {
+						o.vx *= a / n;
+						o.vy *= a / n
+					}
+					o.vx *= l;
+					o.vy *= l;
+					o.x += o.vx;
+					o.y += o.vy;
+					if (o.x - o.size / 2 < d) {
+						o.vx += u * (d - (o.x - o.size / 2));
+						if (o.x - o.size / 2 < 0) o.x = o.size / 2 + 1
+					} else if (o.x + o.size / 2 > e - d) {
+						o.vx -= u * ((o.x + o.size / 2) - (e - d));
+						if (o.x + o.size / 2 > e) o.x = e - o.size / 2 - 1
+					}
+					if (o.y - o.size / 2 < d) {
+						o.vy += u * (d - (o.y - o.size / 2));
+						if (o.y - o.size / 2 < 0) o.y = o.size / 2 + 1
+					} else if (o.y + o.size / 2 > t - d) {
+						o.vy -= u * ((o.y + o.size / 2) - (t - d));
+						if (o.y + o.size / 2 > t) o.y = t - o.size / 2 - 1
+					}
+					o.element.style.transform = `translate(${o.x-o.size/2}px, ${o.y-o.size/2}px)`
 				});
-			}
-		};
-		const updateAnimation = () => {
-			if (!decorationContainer || shapes.length === 0) return;
-			const cw = decorationContainer.offsetWidth;
-			const ch = decorationContainer.offsetHeight;
-			shapes.forEach(s => {
-				s.vx += (Math.random() - 0.5) * turbulence;
-				s.vy += (Math.random() - 0.5) * turbulence;
-				const speed = Math.sqrt(s.vx * s.vx + s.vy * s.vy);
-				const maxSpeed = baseSpeed * 2.0;
-				if (speed > maxSpeed) {
-					s.vx *= maxSpeed / speed;
-					s.vy *= maxSpeed / speed;
-				}
-				s.vx *= friction;
-				s.vy *= friction;
-				s.x += s.vx;
-				s.y += s.vy;
-				if (s.x - s.size / 2 < padding) {
-					s.vx += pushBackForce * (padding - (s.x - s.size / 2));
-					if (s.x - s.size / 2 < 0) s.x = s.size / 2 + 1;
-				} else if (s.x + s.size / 2 > cw - padding) {
-					s.vx -= pushBackForce * ((s.x + s.size / 2) - (cw - padding));
-					if (s.x + s.size / 2 > cw) s.x = cw - s.size / 2 - 1;
-				}
-				if (s.y - s.size / 2 < padding) {
-					s.vy += pushBackForce * (padding - (s.y - s.size / 2));
-					if (s.y - s.size / 2 < 0) s.y = s.size / 2 + 1;
-				} else if (s.y + s.size / 2 > ch - padding) {
-					s.vy -= pushBackForce * ((s.y + s.size / 2) - (ch - padding));
-					if (s.y + s.size / 2 > ch) s.y = ch - s.size / 2 - 1;
-				}
-				s.element.style.transform =
-					`translate(${s.x - s.size / 2}px, ${s.y - s.size / 2}px)`;
-			});
-			requestAnimationFrame(updateAnimation);
-		};
+				requestAnimationFrame(p)
+			};
 		setTimeout(() => {
-			initShapes();
-			if (shapes.length > 0) requestAnimationFrame(updateAnimation);
-		}, 0);
+			m();
+			o.length > 0 && requestAnimationFrame(p)
+		}, 0)
 	}
 
 }); // End of DOMContentLoaded listener

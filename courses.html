@@ -6,43 +6,10 @@
 		<title>课程学习 - 无障碍英语学习平台</title>
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="css/courses.css">
-		<script>
-			(function() {
-				const themeKey = 'user_theme';
-				const themeQuery = '(prefers-color-scheme: dark)';
-				const storedTheme = localStorage.getItem(themeKey);
-				const prefersDark = window.matchMedia(themeQuery).matches;
-				let currentTheme;
-				if (storedTheme && ['light', 'dark'].includes(storedTheme)) {
-					currentTheme = storedTheme;
-				} else if (storedTheme === 'system' || !storedTheme) {
-					currentTheme = prefersDark ? 'dark' : 'light';
-				} else {
-					currentTheme = 'light';
-				}
-				document.documentElement.setAttribute('data-theme', currentTheme);
-				console.log(`Initial theme set in <head>: ${currentTheme}`);
-			})();
-		</script>
+		<script src="js/theme-init.js"></script>
 	</head>
 	<body>
 
-		<div style="display: none;">
-			<svg xmlns="http://www.w3.org/2000/svg">
-				<symbol id="icon-gear" viewBox="0 0 16 16">
-					<path
-						d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311a1.464 1.464 0 0 1-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.858 2.929 2.929 0 0 1 0 5.858z" />
-				</symbol>
-				<symbol id="icon-question" viewBox="0 0 16 16">
-					<path
-						d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247zm2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z" />
-				</symbol>
-				<symbol id="icon-arrow-left" viewBox="0 0 16 16">
-					<path fill-rule="evenodd"
-						d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
-				</symbol>
-			</svg>
-		</div>
 		<header class="minimal-top-bar">
 			<div class="logo">
 				<a href="index.html" aria-label="返回首页">E-Learner</a>
@@ -54,7 +21,7 @@
 					<button class="icon-button" id="settings-button" aria-label="打开设置菜单" aria-haspopup="true"
 						aria-expanded="false" title="设置">
 						<svg width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false">
-							<use xlink:href="#icon-gear"></use>
+							<use xlink:href="images/icons.svg#icon-gear"></use>
 						</svg>
 						<span class="visually-hidden">设置</span>
 					</button>
@@ -64,7 +31,7 @@
 				</div>
 				<button class="icon-button" aria-label="帮助中心" title="帮助中心">
 					<svg width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false">
-						<use xlink:href="#icon-question"></use>
+						<use xlink:href="images/icons.svg#icon-question"></use>
 					</svg>
 					<span class="visually-hidden">帮助</span>
 				</button>
@@ -72,7 +39,7 @@
 		</header>
 		<a href="index.html" class="fixed-back-button" aria-label="返回首页">
 			<svg width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false">
-				<use xlink:href="#icon-arrow-left"></use>
+				<use xlink:href="images/icons.svg#icon-arrow-left"></use>
 			</svg>
 			<span class="visually-hidden">返回首页</span>
 		</a>
@@ -88,10 +55,12 @@
 				<article class="chapter-block" id="unit1">
 					<h2>Unit 1: 初入校园 (Getting Started on Campus)</h2>
 					<ul class="chapter-actions">
-						<a href="vocab.html?unit=1" class="action-card">
-							<span class="icon">📖</span>
-							本单元单词
-						</a></li>
+						<li>
+							<a href="vocab.html?unit=1" class="action-card">
+								<span class="icon">📖</span>
+								本单元单词
+							</a>
+						</li>
 						<li><a href="#" class="action-card secondary">
 								<span class="icon">💬</span>
 								情景对话 (占位)
@@ -106,10 +75,12 @@
 				<article class="chapter-block" id="unit2">
 					<h2>Unit 2: 图书馆与学习 (Library & Study)</h2>
 					<ul class="chapter-actions">
-						<a href="vocab.html?unit=2" class="action-card">
-							<span class="icon">📖</span>
-							本章单词
-						</a></li>
+						<li>
+							<a href="vocab.html?unit=2" class="action-card">
+								<span class="icon">📖</span>
+								本章单词
+							</a>
+						</li>
 						<li><a href="#" class="action-card secondary">
 								<span class="icon">🗣️</span>
 								核心讲解 (占位)

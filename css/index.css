@@ -16,12 +16,10 @@
 	color: var(--text-dark);
 	padding: 0.6em 1.2em;
 	margin: 0 0.5em;
-	/* 按钮间距 */
 	border-radius: 20px;
-	/* 圆角胶囊状 */
 	cursor: pointer;
 	font-size: 0.9em;
-	transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+	transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
@@ -91,34 +89,27 @@ html[data-theme='dark'] .theme-switch-button:focus {
 }
 
 
-/* --- 首页导航卡片容器 --- */
 .hub-container {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 	gap: 1.8em;
-	/* 稍微增大卡片间距 */
 	margin-bottom: 3em;
-	/* margin-top: 0; 移除默认顶部间距，交给上方元素控制 */
 }
 
-/* 首页导航卡片 - 改进样式 */
 .hub-card {
 	display: flex;
-	/* 改为 flex 布局，方便控制内部对齐 */
 	flex-direction: column;
-	/* 垂直排列内部元素 */
 	align-items: center;
-	/* 水平居中 */
 	background-color: var(--background-white);
 	border-radius: 12px;
-	/* 增加圆角 */
 	padding: 2em 1.5em;
-	/* 调整内边距 */
 	text-align: center;
 	border: 1px solid var(--border-color);
-	/* 添加细边框 */
 	box-shadow: var(--card-shadow);
-	transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out, border-color 0.25s ease-in-out;
+	transition: transform 0.25s ease-in-out,
+		box-shadow 0.25s ease-in-out,
+		border-color 0.3s ease,
+		background-color 0.3s ease;
 	color: var(--text-dark);
 	text-decoration: none;
 }
@@ -126,41 +117,34 @@ html[data-theme='dark'] .theme-switch-button:focus {
 .hub-card:hover,
 .hub-card:focus {
 	transform: translateY(-6px) scale(1.02);
-	/* 更明显的悬停效果 */
 	box-shadow: var(--card-hover-shadow);
 	border-color: var(--primary-blue);
-	/* 悬停时边框变色 */
 	outline: none;
 	text-decoration: none;
 	color: var(--text-dark);
 }
 
-/* 悬停时标题和图标颜色变化 */
 .hub-card:hover h3,
 .hub-card:focus h3,
 .hub-card:hover .icon,
 .hub-card:focus .icon {
 	color: var(--primary-blue);
+	text-decoration: none;
 }
 
 .hub-card .icon {
 	font-size: 2.8em;
-	/* 增大图标 */
 	color: var(--link-color);
-	/* 初始颜色 */
 	margin-bottom: 0.6em;
 	display: block;
 	transition: color 0.25s ease-in-out;
-	/* 添加颜色过渡 */
 }
 
 .hub-card h3 {
 	margin-top: 0;
 	margin-bottom: 0.6em;
 	font-size: 1.25em;
-	/* 增大标题 */
 	font-weight: 600;
-	/* 加粗一点 */
 	color: var(--link-color);
 	transition: color 0.25s ease-in-out;
 }
@@ -169,16 +153,13 @@ html[data-theme='dark'] .theme-switch-button:focus {
 	color: var(--text-light);
 	font-size: 0.9em;
 	line-height: 1.6;
-	/* 调整行高 */
 	flex-grow: 1;
-	/* 让描述文字占据剩余空间，有助于底部对齐（如果卡片高度不一）*/
+	text-decoration: none !important;
 }
 
-/* --- 首页响应式调整 --- */
 @media (max-width: 768px) {
 	.hub-container {
 		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-		/* 中等屏幕卡片宽度 */
 		gap: 1.2em;
 	}
 
