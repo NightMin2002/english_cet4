@@ -1,12 +1,12 @@
 # Node.js 依赖文件夹
 node_modules/
 
-# 环境变量文件 (如果将来使用)
-.env
-
 # 操作系统生成的文件
 .DS_Store
 Thumbs.db
 
 # 忽略环境变量文件
 .env
+
+project_tree.txt
+css_js_links.txt
