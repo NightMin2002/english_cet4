@@ -6,7 +6,7 @@
 		<title>无障碍英语学习平台 - 首页</title>
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="css/index.css">
-		<link rel="stylesheet" href="css/guide-assistant.css">
+		<link rel="stylesheet" href="css/guide-system.css">
 		<script src="js/theme-init.js"></script>
 	</head>
 	<body>
@@ -51,36 +51,52 @@
 				<button id="switch-to-light" class="theme-switch-button" aria-label="切换到浅色模式">☀️ 浅色</button>
 				<button id="switch-to-dark" class="theme-switch-button" aria-label="切换到深色模式">🌙 深色</button>
 			</div>
+			<div class="guide-trigger-container">
+				<button id="show-guide-options-btn" class="button-secondary">📘 查看使用引导</button>
+				<div id="guide-options-popup" class="guide-options-popup" hidden>
+					<div class="guide-options-header">
+						<h4>选择引导内容</h4>
+						<button id="close-guide-popup-btn" class="icon-button close-button"
+							aria-label="关闭引导选项">✕</button>
+					</div>
+					<div class="guide-options-body">
+						<button id="guide-cards-btn" class="button-primary">引导：认识主页卡片</button>
+						<button id="guide-assistant-btn" class="button-primary">引导：了解 AI 助手</button>
+					</div>
+				</div>
+			</div>
 
 			<div class="hub-container">
-				<a href="courses.html" class="hub-card"> <span class="icon">📚</span>
+				<a href="courses.html" class="hub-card">
+					<span class="icon">📚</span>
 					<h3>课程学习</h3>
-					<p>系统学习四级英语章节，包含手语视频、词汇和练习。</p>
 				</a>
-				<a href="#dictionary" class="hub-card"> <span class="icon">📖</span>
+				<a href="#dictionary" class="hub-card">
+					<span class="icon">📖</span>
 					<h3>手语词典</h3>
-					<p>查询英语单词的手语表达，支持视频和文字解释。</p>
 				</a>
-				<a href="#community" class="hub-card"> <span class="icon">🤝</span>
+				<a href="#community" class="hub-card">
+					<span class="icon">🤝</span>
 					<h3>学习社区</h3>
-					<p>与其他学习者交流，分享经验，参与手语视频讨论。</p>
 				</a>
-				<a href="settings.html" class="hub-card"> <span class="icon">⚙️</span>
+				<a href="settings.html" class="hub-card">
+					<span class="icon">⚙️</span>
 					<h3>个人设置</h3>
-					<p>调整主题、字幕、字体大小等个性化和无障碍选项。</p>
 				</a>
-				<a href="#practice" class="hub-card"> <span class="icon">✍️</span>
+				<a href="#practice" class="hub-card">
+					<span class="icon">✍️</span>
 					<h3>互动练习</h3>
-					<p>通过拖拽、手语识别等方式巩固所学知识。</p>
 				</a>
-				<a href="resources.html" class="hub-card"> <span class="icon">💡</span>
+				<a href="resources.html" class="hub-card">
+					<span class="icon">💡</span>
 					<h3>学习资源</h3>
-					<p>查找文化背景、学习技巧等辅助材料。</p>
 				</a>
 			</div>
+
 		</main>
 
 		<script src="js/script.js" defer></script>
-		<script src="js/guide-assistant.js" defer></script>
+		<script src="js/ai-assistant.js" defer></script>
+		<script src="js/page-guide.js" defer></script>
 	</body>
 </html>

@@ -155,27 +155,20 @@
 .chapter-block a.action-card.secondary:hover,
 .chapter-block a.action-card.secondary:focus {
 	background-color: var(--background-light);
-	/* 背景变化不大 */
 	border-color: var(--text-dark);
-	/* 边框加深 */
 	border-left-color: var(--text-dark);
 	color: var(--text-dark);
 	transform: none;
-	/* 无形变 */
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-	/* 微妙阴影 */
 }
 
 .chapter-block a.action-card.secondary:hover .icon,
 .chapter-block a.action-card.secondary:focus .icon {
 	color: var(--text-dark);
-	/* 图标颜色也加深 */
 }
 
-/* --- 暗色主题下的课程页样式 (对应修改) --- */
 html[data-theme='dark'] .chapter-block a.action-card {
 	background-color: var(--light-blue);
-	/* 暗色模式下也用较深背景 */
 	border-color: transparent;
 	border-left-color: var(--primary-blue);
 	color: var(--text-dark);
@@ -191,9 +184,7 @@ html[data-theme='dark'] .chapter-block a.action-card:focus {
 	background-color: var(--primary-blue);
 	border-color: var(--primary-blue);
 	border-left-color: #4aa0d4;
-	/* 暗色悬停左边框稍亮 */
 	color: #111;
-	/* 暗色模式按钮文字 */
 	box-shadow: var(--card-hover-shadow);
 }
 
