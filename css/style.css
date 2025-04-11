@@ -1,7 +1,21 @@
 /* css/style.css */
+/* Define Local Noto Sans SC Font */
+@font-face {
+	font-family: 'Noto Sans SC';
+	src: url('../fonts/NotoSansSC-Regular.woff2') format('woff2');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
 
+@font-face {
+	font-family: 'Noto Sans SC';
+	src: url('../fonts/NotoSansSC-Bold.woff2') format('woff2');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
 
-/* --- 基本重置 --- */
 * {
 	margin: 0;
 	padding: 0;
@@ -11,17 +25,17 @@
 html,
 body {
 	width: 100%;
-
 }
 
 html {
 	background-color: var(--background-light);
-	height: 100%
+	height: 100%;
 }
 
 /* --- 全局变量与主题 --- */
 :root {
-	/* 亮色主题默认值 */
+	/* --- Base Colors --- */
+	--main-font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 	--primary-blue: #0056b3;
 	--light-blue: #e7f1ff;
 	--text-dark: #212529;
@@ -29,149 +43,133 @@ html {
 	--background-light: #f8f9fa;
 	--background-white: #ffffff;
 	--border-color: #dee2e6;
-	--card-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-	--card-hover-shadow: 0 8px 15px rgba(0, 86, 179, 0.1);
+	--accent-teal: #14b8a6;
+	--accent-teal-light: #ccfbf1;
+	--accent-teal-dark: #0f766e;
+	--card-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+	--card-hover-shadow: 0 6px 12px rgba(0, 86, 179, 0.1);
 	--link-color: var(--primary-blue);
+	--link-hover-color: #004085;
 	--top-bar-bg: var(--background-white);
 	--top-bar-border: var(--border-color);
 	--top-bar-icon-color: var(--text-light);
+	--top-bar-icon-hover-bg: rgba(0, 86, 179, 0.08);
 	--top-bar-icon-hover-color: var(--primary-blue);
-	--module-bg: var(--background-white);
-	/* 首页模块背景 */
-	--module-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-	/* 首页模块阴影 */
 	--button-bg: var(--primary-blue);
-	/* 通用按钮背景 */
 	--button-text: var(--background-white);
-	/* 通用按钮文字 */
 	--button-hover-bg: #004085;
-	/* 通用按钮悬停背景 */
 	--input-bg: var(--background-white);
-	/* 表单输入框背景 */
 	--input-border: var(--border-color);
-	/* 表单输入框边框 */
+	--input-focus-border: var(--primary-blue);
+	--input-focus-shadow: hsla(from var(--primary-blue) h s l / 0.3);
 	--input-text: var(--text-dark);
-	/* 表单输入框文字 */
 	--dropdown-bg: var(--background-white);
-	/* 设置下拉菜单背景 */
-	--dropdown-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-	/* 设置下拉菜单阴影 */
+	--dropdown-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 	--dropdown-link-hover-bg: var(--light-blue);
-	/* 设置下拉菜单链接悬停背景 */
+
+	/* --- Layout & Font --- */
 	--subtitle-font-size: 1em;
-	/* 全局字幕字体大小 */
 	--global-font-scale: 1;
-	/* 全局字体缩放比例 */
 	--top-bar-height: 60px;
-	/* 顶部导航栏高度 */
-	/* --chapter-block-border: var(--primary-blue); */
-	/* 移至 courses.css */
+	--border-radius-base: 6px;
+	--border-radius-large: 12px;
 }
 
 /* 暗色主题变量 */
 html[data-theme='dark'] {
 	--primary-blue: #5dade2;
+	/* Light Blue primary */
 	--light-blue: #2c3e50;
+	/* Darker bg/component tone */
 	--text-dark: #e9ecef;
 	--text-light: #adb5bd;
-	--background-light: #1a1a1a;
-	--background-white: #2b2b2b;
-	--border-color: #495057;
-	--card-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-	--card-hover-shadow: 0 8px 15px rgba(93, 173, 226, 0.2);
+	--background-light: #18181b;
+	--background-white: #27272a;
+	--border-color: #4b5563;
+	/* Teal Accent for Dark Mode Highlights */
+	--accent-teal: #2dd4bf;
+	--accent-teal-light: #115e59;
+	--accent-teal-dark: #5eead4;
+
+	--card-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	--card-hover-shadow: 0 6px 12px rgba(93, 173, 226, 0.2);
+	/* Light blue shadow */
 	--link-color: var(--primary-blue);
-	--top-bar-bg: #212121;
-	--top-bar-border: #333;
+	--link-hover-color: #85c1e9;
+	/* Lighter blue hover */
+	--top-bar-bg: #1f1f22;
+	--top-bar-border: #374151;
 	--top-bar-icon-color: var(--text-light);
+	--top-bar-icon-hover-bg: rgba(93, 173, 226, 0.15);
+	/* Light blue hover bg */
 	--top-bar-icon-hover-color: var(--primary-blue);
-	--module-bg: var(--background-white);
-	--module-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 	--button-bg: var(--primary-blue);
 	--button-text: #111;
+	/* Dark text on light blue */
 	--button-hover-bg: #85c1e9;
-	--input-bg: #333;
-	--input-border: #555;
+	/* Lighter blue hover */
+	--input-bg: #3f3f46;
+	--input-border: #52525b;
+	--input-focus-border: var(--primary-blue);
+	/* Light blue focus border */
+	--input-focus-shadow: hsla(from var(--primary-blue) h s l / 0.4);
+	/* Light blue focus shadow */
 	--input-text: var(--text-dark);
-	--dropdown-bg: #333;
-	--dropdown-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-	--dropdown-link-hover-bg: #444;
-	/* --chapter-block-border: var(--primary-blue); */
-	/* 移至 courses.css */
-}
-
-/* 亮色主题变量 (用于JS切换) */
-html[data-theme='light'] {
-	/* 这里主要是为了覆盖可能从暗色模式继承过来的值 */
-	--primary-blue: #0056b3;
-	--light-blue: #e7f1ff;
-	--text-dark: #212529;
-	--text-light: #6c757d;
-	--background-light: #f8f9fa;
-	--background-white: #ffffff;
-	--border-color: #dee2e6;
-	--link-color: var(--primary-blue);
-	--top-bar-bg: var(--background-white);
-	--top-bar-border: var(--border-color);
-	--top-bar-icon-color: var(--text-light);
-	--top-bar-icon-hover-color: var(--primary-blue);
-	--module-bg: var(--background-white);
-	--module-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-	--button-bg: var(--primary-blue);
-	--button-text: var(--background-white);
-	--button-hover-bg: #004085;
-	--input-bg: var(--background-white);
-	--input-border: var(--border-color);
-	--input-text: var(--text-dark);
-	--dropdown-bg: var(--background-white);
-	--dropdown-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-	--dropdown-link-hover-bg: var(--light-blue);
+	--dropdown-bg: #3f3f46;
+	--dropdown-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+	--dropdown-link-hover-bg: #52525b;
 }
 
 /* 跟随系统偏好设置 (如果JS未指定主题) */
 @media (prefers-color-scheme: dark) {
 	html:not([data-theme='light']):not([data-theme='dark']) {
-		/* 应用暗色变量 */
+		/* Apply dark theme variables */
 		--primary-blue: #5dade2;
 		--light-blue: #2c3e50;
 		--text-dark: #e9ecef;
 		--text-light: #adb5bd;
-		--background-light: #1a1a1a;
-		--background-white: #2b2b2b;
-		--border-color: #495057;
-		--card-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-		--card-hover-shadow: 0 8px 15px rgba(93, 173, 226, 0.2);
+		--background-light: #18181b;
+		--background-white: #27272a;
+		--border-color: #4b5563;
+		--accent-teal: #2dd4bf;
+		--accent-teal-light: #115e59;
+		--accent-teal-dark: #5eead4;
+		--card-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+		--card-hover-shadow: 0 6px 12px rgba(93, 173, 226, 0.2);
 		--link-color: var(--primary-blue);
-		--top-bar-bg: #212121;
-		--top-bar-border: #333;
+		--link-hover-color: #85c1e9;
+		--top-bar-bg: #1f1f22;
+		--top-bar-border: #374151;
 		--top-bar-icon-color: var(--text-light);
+		--top-bar-icon-hover-bg: rgba(93, 173, 226, 0.15);
 		--top-bar-icon-hover-color: var(--primary-blue);
-		--module-bg: var(--background-white);
-		--module-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 		--button-bg: var(--primary-blue);
 		--button-text: #111;
 		--button-hover-bg: #85c1e9;
-		--input-bg: #333;
-		--input-border: #555;
+		--input-bg: #3f3f46;
+		--input-border: #52525b;
+		--input-focus-border: var(--primary-blue);
+		--input-focus-shadow: hsla(from var(--primary-blue) h s l / 0.4);
 		--input-text: var(--text-dark);
-		--dropdown-bg: #333;
-		--dropdown-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-		--dropdown-link-hover-bg: #444;
+		--dropdown-bg: #3f3f46;
+		--dropdown-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+		--dropdown-link-hover-bg: #52525b;
 	}
 }
 
 
 /* --- 全局基础样式 --- */
 body {
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-family: var(--main-font-family);
 	line-height: 1.6;
 	background-color: var(--background-light);
 	color: var(--text-dark);
 	font-size: calc(1rem * var(--global-font-scale));
-	transition: font-size 0.2s ease;
 	padding-top: var(--top-bar-height);
 	transition: background-color 0.3s ease, color 0.3s ease, font-size 0.2s ease;
 	min-height: 100%;
 	box-sizing: border-box;
+	overflow: hidden
 }
 
 /* --- 顶部固定导航栏 --- */
@@ -190,7 +188,7 @@ body {
 	box-sizing: border-box;
 	z-index: 1000;
 	transition: background-color 0.3s ease, border-bottom-color 0.3s ease;
-	overflow: hidden;
+	overflow: visible;
 }
 
 .minimal-top-bar .logo,
@@ -204,6 +202,12 @@ body {
 	color: var(--link-color);
 	font-size: 1.5em;
 	font-weight: bold;
+	transition: color 0.2s ease;
+}
+
+.logo a:hover {
+	color: var(--link-hover-color);
+	/* Blue hover */
 }
 
 .top-bar-icons {
@@ -223,7 +227,7 @@ body {
 	font-size: 1.4em;
 	padding: 0.4em 0.6em;
 	cursor: pointer;
-	border-radius: 4px;
+	border-radius: var(--border-radius-base);
 	line-height: 1;
 	vertical-align: middle;
 	transition: color 0.2s ease, background-color 0.2s ease;
@@ -232,22 +236,16 @@ body {
 .top-bar-icons button.icon-button:hover,
 .top-bar-icons button.icon-button:focus {
 	color: var(--top-bar-icon-hover-color);
-	background-color: rgba(0, 86, 179, 0.1);
+	background-color: var(--top-bar-icon-hover-bg);
 	outline: none;
 }
 
-html[data-theme='dark'] .top-bar-icons button.icon-button:hover,
-html[data-theme='dark'] .top-bar-icons button.icon-button:focus {
-	background-color: rgba(93, 173, 226, 0.15);
-}
-
-/* 设置下拉菜单 */
 .settings-dropdown {
-	position: fixed;
-	top: calc(var(--top-bar-height) + 0.5em);
-	right: 1.5em;
+	position: absolute;
+	top: calc(100% + 0.5em);
+	right: 0;
 	background-color: var(--dropdown-bg);
-	border-radius: 6px;
+	border-radius: var(--border-radius-base);
 	box-shadow: var(--dropdown-shadow);
 	min-width: 160px;
 	z-index: 1001;
@@ -256,14 +254,15 @@ html[data-theme='dark'] .top-bar-icons button.icon-button:focus {
 	margin: 0;
 	opacity: 0;
 	visibility: hidden;
-	transform: translateY(-10px);
-	transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease, background-color 0.3s ease;
+	transform: translateY(-5px);
+	transition: opacity 0.2s ease, visibility 0s linear 0.2s, transform 0.2s ease, background-color 0.3s ease;
 }
 
 .settings-dropdown.active {
 	opacity: 1;
 	visibility: visible;
 	transform: translateY(0);
+	transition: opacity 0.2s ease, visibility 0s linear 0s, transform 0.2s ease, background-color 0.3s ease;
 }
 
 .settings-dropdown li a {
@@ -284,75 +283,40 @@ html[data-theme='dark'] .top-bar-icons button.icon-button:focus {
 	outline: none;
 }
 
-/* --- 顶部导航栏动态背景装饰 --- */
-.dynamic-decorations {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	pointer-events: none;
-	z-index: 0;
-}
-
-.deco-shape {
-	position: absolute;
-	opacity: 0.1;
-	background-color: var(--primary-blue);
-	transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s ease;
-	border-radius: 50%;
-}
-
-html[data-theme='dark'] .deco-shape {
-	background-color: white;
-	opacity: 0.08;
-}
-
-.deco-shape.square {
-	border-radius: 0;
-	opacity: 0.08;
-}
-
-html[data-theme='dark'] .deco-shape.square {
-	opacity: 0.7;
-}
-
-.deco-shape.triangle {
-	background-color: var(--primary-blue);
-	opacity: 0.12;
-	border-radius: 0;
-	clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-}
-
-html[data-theme='dark'] .deco-shape.triangle {
-	background-color: white;
-	opacity: 0.15;
-}
-
 /* --- 主要内容区域通用样式 --- */
 main {
 	max-width: 1100px;
 	margin-left: auto;
 	margin-right: auto;
-	margin-bottom: 2em;
+	margin-bottom: 3em;
 	padding: 0 1.5em;
 	box-sizing: border-box;
-	margin-top: 1.5em;
+	margin-top: 2em;
 }
 
 h1,
 h2,
 h3 {
-	color: var(--link-color);
+	color: var(--text-dark);
+	font-weight: 700;
+}
+
+h1.page-title,
+h2 {
+	color: var(--primary-blue);
+}
+
+h1.page-title {
+	font-weight: 700;
 }
 
 h2 {
 	border-bottom: 1px solid var(--border-color);
 	padding-bottom: 0.5em;
-	margin-top: 1.5em;
-	margin-bottom: 1em;
+	margin-top: 2em;
+	margin-bottom: 1.2em;
 	transition: border-color 0.3s ease;
+	font-size: 1.5em;
 }
 
 main>h2:first-of-type,
@@ -361,7 +325,6 @@ main>div:first-of-type>h2:first-of-type {
 	margin-top: 0;
 }
 
-
 a {
 	color: var(--link-color);
 	text-decoration: none;
@@ -369,48 +332,51 @@ a {
 }
 
 a:hover {
+	color: var(--link-hover-color);
+	/* Use blue hover */
 	text-decoration: underline;
 }
 
-/* 页面主标题 (如 H1) */
 .page-title {
 	text-align: center;
-	margin-bottom: 1em;
-	/* 稍微减少间距 */
+	margin-bottom: 0.8em;
+	font-size: 2em;
+	font-weight: 700;
 }
 
-/* 页面简介文字 */
 .page-intro {
 	text-align: center;
 	color: var(--text-light);
-	margin-bottom: 2.5em;
-	font-size: 1.1em;
+	margin-bottom: 3em;
+	font-size: 1.15em;
+	max-width: 650px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
-
-/* --- 面包屑导航 (全局组件) --- */
+/* --- 面包屑导航 --- */
 nav.breadcrumb-nav {
 	font-size: 0.9em;
-	margin-bottom: 1.5em;
+	margin-bottom: 2em;
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
-	gap: 0.4em;
+	gap: 0.5em;
 }
 
 nav.breadcrumb-nav a,
 nav.breadcrumb-nav span {
 	display: inline-block;
-	padding: 0.3em 0.8em;
-	border-radius: 15px;
+	padding: 0.4em 0.9em;
+	border-radius: var(--border-radius-base);
 	text-decoration: none;
 	line-height: 1.4;
 	transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 nav.breadcrumb-nav a {
-	background-color: #d1e7fd;
-	color: #0a58ca;
+	background-color: var(--light-blue);
+	color: var(--primary-blue);
 }
 
 nav.breadcrumb-nav a:hover,
@@ -422,14 +388,15 @@ nav.breadcrumb-nav a:focus {
 }
 
 nav.breadcrumb-nav span {
-	background-color: #e9ecef;
+	background-color: var(--background-white);
 	color: var(--text-dark);
-	font-weight: bold;
+	border: 1px solid var(--border-color);
+	font-weight: 700;
 	cursor: default;
 }
 
 html[data-theme='dark'] nav.breadcrumb-nav a {
-	background-color: #34495e;
+	background-color: var(--light-blue);
 	color: var(--primary-blue);
 }
 
@@ -440,11 +407,12 @@ html[data-theme='dark'] nav.breadcrumb-nav a:focus {
 }
 
 html[data-theme='dark'] nav.breadcrumb-nav span {
-	background-color: var(--primary-blue);
-	color: #111;
+	background-color: var(--background-white);
+	border-color: var(--border-color);
+	color: var(--text-dark);
 }
 
-/* --- 固定返回按钮 (全局组件) --- */
+/* --- 固定返回按钮 --- */
 .fixed-back-button {
 	position: fixed;
 	top: calc(var(--top-bar-height) + 1em);
@@ -453,15 +421,15 @@ html[data-theme='dark'] nav.breadcrumb-nav span {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	width: 40px;
-	height: 40px;
+	width: 44px;
+	height: 44px;
 	background-color: var(--background-white);
 	color: var(--primary-blue);
 	border: 1px solid var(--border-color);
 	border-radius: 50%;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 	text-decoration: none;
-	font-size: 1.2em;
+	font-size: 1.3em;
 	line-height: 1;
 	transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -472,7 +440,7 @@ html[data-theme='dark'] nav.breadcrumb-nav span {
 	color: var(--button-text);
 	border-color: var(--primary-blue);
 	transform: scale(1.05);
-	box-shadow: 0 4px 8px rgba(0, 86, 179, 0.2);
+	box-shadow: 0 4px 8px rgba(0, 86, 179, 0.15);
 	outline: none;
 }
 
@@ -480,7 +448,7 @@ html[data-theme='dark'] .fixed-back-button {
 	background-color: var(--background-white);
 	color: var(--primary-blue);
 	border-color: var(--border-color);
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 html[data-theme='dark'] .fixed-back-button:hover,
@@ -488,6 +456,7 @@ html[data-theme='dark'] .fixed-back-button:focus {
 	background-color: var(--primary-blue);
 	color: #111;
 	border-color: var(--primary-blue);
+	box-shadow: 0 4px 8px rgba(93, 173, 226, 0.2);
 }
 
 /* --- 辅助类 --- */
@@ -501,32 +470,83 @@ html[data-theme='dark'] .fixed-back-button:focus {
 	white-space: nowrap;
 }
 
-/* --- 通用按钮样式 (示例) --- */
+/* --- 通用按钮样式 (Base Button - .button) --- */
 .button {
-	display: inline-block;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 	background-color: var(--button-bg);
 	color: var(--button-text);
-	padding: 0.6em 1.2em;
+	padding: 0.7em 1.4em;
 	text-decoration: none;
-	border-radius: 4px;
+	border-radius: var(--border-radius-base);
 	border: none;
 	cursor: pointer;
 	font-size: 1em;
+	font-weight: 700;
 	text-align: center;
-	transition: background-color 0.2s ease;
+	transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
+.button:hover {
+	background-color: var(--button-hover-bg);
+	transform: translateY(-1px);
+	box-shadow: 0 3px 6px rgba(0, 86, 179, 0.15);
+	/* Blue shadow */
+}
 
+.button:active {
+	transform: translateY(0px);
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
 
+html[data-theme='dark'] .button:hover {
+	box-shadow: 0 3px 6px rgba(93, 173, 226, 0.2);
+	/* Light blue shadow */
+}
+
+html[data-theme='dark'] .button:active {
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Secondary Button Style */
+.button-secondary {
+	background-color: var(--background-white);
+	color: var(--primary-blue);
+	border: 1px solid var(--border-color);
+	box-shadow: none;
+}
+
+.button-secondary:hover {
+	background-color: var(--light-blue);
+	border-color: var(--primary-blue);
+	color: var(--primary-blue);
+	transform: translateY(-1px);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+html[data-theme='dark'] .button-secondary {
+	background-color: var(--background-white);
+	color: var(--primary-blue);
+	border-color: var(--border-color);
+}
+
+html[data-theme='dark'] .button-secondary:hover {
+	background-color: var(--light-blue);
+	border-color: var(--primary-blue);
+	color: var(--primary-blue);
+	/* Check contrast if needed */
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* --- 媒体查询 --- */
 @media (max-width: 768px) {
-
-	/* 缩小基础字体大小 */
 	body {
 		font-size: calc(0.9375rem * var(--global-font-scale));
-		/* 约 15px */
+		/* 15px base */
 	}
 
-	/* 调整顶部导航栏 */
 	.minimal-top-bar {
 		padding: 0 1em;
 	}
@@ -536,71 +556,52 @@ html[data-theme='dark'] .fixed-back-button:focus {
 	}
 
 	.settings-dropdown {
-		right: 1em;
-		min-width: 140px;
+		right: 0;
+		min-width: 150px;
 	}
 
-	/* 调整主要内容区域 */
 	main {
-		margin-top: calc(var(--top-bar-height) + 1em);
-		margin-bottom: 1.5em;
+		margin-top: 1.5em;
+		margin-bottom: 2em;
 		padding: 0 1em;
 	}
 
-
-	/* 调整设置页面 */
-	.settings-section {
-		padding: 1em 1.5em;
+	h2 {
+		font-size: 1.4em;
 	}
 
-	.radio-group label {
-		margin-right: 1em;
-		/* 减小单选按钮间距 */
+	.page-title {
+		font-size: 1.8em;
 	}
 
-	/* 调整固定返回按钮 */
+	.page-intro {
+		font-size: 1.1em;
+		margin-bottom: 2.5em;
+	}
+
 	.fixed-back-button {
 		top: calc(var(--top-bar-height) + 0.8em);
 		left: 1em;
-		width: 36px;
-		height: 36px;
-		font-size: 1.1em;
+		width: 40px;
+		height: 40px;
+		font-size: 1.2em;
 	}
 }
 
 @media (max-width: 480px) {
+	body {
+		font-size: calc(0.875rem * var(--global-font-scale));
+		/* 14px base */
+	}
 
 	nav.breadcrumb-nav {
-		gap: 0.6em;
+		gap: 0.4em;
 		font-size: 0.85em;
 	}
 
 	nav.breadcrumb-nav a,
 	nav.breadcrumb-nav span {
-		padding: 0.25em 0.7em;
-	}
-
-	.settings-section {
-		padding: 1em;
-	}
-
-	.setting-item label:not(.radio-group label):not(.checkbox-group label),
-	.setting-item p.description {
-		font-size: 0.9em;
-	}
-
-	.radio-group label {
-		font-size: 0.9em;
-		margin-right: 0.8em;
-	}
-
-	button.font-size-button {
-		font-size: 0.85em;
-		padding: 0.4em 0.8em;
-	}
-
-	.subtitle-preview {
-		padding: 0.8em;
+		padding: 0.3em 0.8em;
 	}
 
 	.page-title {
@@ -612,4 +613,62 @@ html[data-theme='dark'] .fixed-back-button:focus {
 		margin-bottom: 2em;
 	}
 
+	.button {
+		padding: 0.6em 1.2em;
+		font-size: 0.95em;
+	}
+}
+
+/* --- 顶部导航栏动态背景装饰 (Restored) --- */
+.dynamic-decorations {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	pointer-events: none;
+	z-index: 0;
+	/* Behind logo and icons */
+}
+
+.deco-shape {
+	position: absolute;
+	opacity: 0.08;
+	/* Reduced opacity */
+	background-color: var(--primary-blue);
+	transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.4s ease;
+	/* Smoother transition */
+	border-radius: 50%;
+	will-change: transform;
+	/* Hint for performance */
+}
+
+html[data-theme='dark'] .deco-shape {
+	background-color: var(--primary-blue);
+	/* Use light blue in dark */
+	opacity: 0.1;
+	/* Slightly higher opacity in dark */
+}
+
+/* Example shape variations (if your JS uses them) */
+.deco-shape.square {
+	border-radius: 0;
+	opacity: 0.06;
+}
+
+html[data-theme='dark'] .deco-shape.square {
+	opacity: 0.08;
+}
+
+.deco-shape.triangle {
+	background-color: var(--primary-blue);
+	opacity: 0.07;
+	border-radius: 0;
+	clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+html[data-theme='dark'] .deco-shape.triangle {
+	background-color: var(--primary-blue);
+	opacity: 0.12;
 }

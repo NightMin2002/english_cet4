@@ -1,99 +1,104 @@
 /* css/index.css - 首页专属样式 */
 
-/* --- 首页主题切换按钮 --- */
+/* --- 主题切换按钮 --- */
 .theme-switcher-container {
 	text-align: center;
-	/* 按钮居中 */
-	margin-bottom: 2.5em;
-	/* 与下方卡片间距，可以调整 */
-	margin-top: -1em;
-	/* 稍微向上移动，减少与上方文字的间距 */
+	margin-bottom: 3em;
+	margin-top: -1.5em;
 }
 
 .theme-switch-button {
 	background-color: var(--background-white);
 	border: 1px solid var(--border-color);
 	color: var(--text-dark);
-	padding: 0.6em 1.2em;
-	margin: 0 0.5em;
-	border-radius: 20px;
+	padding: 0.6em 1.3em;
+	margin: 0 0.4em;
+	border-radius: var(--border-radius-large);
+	/* Pill shape */
 	cursor: pointer;
 	font-size: 0.9em;
-	transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+	transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+	box-shadow: var(--card-shadow);
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4em;
 }
 
-.theme-switch-button:hover,
-.theme-switch-button:focus {
+.theme-switch-button:hover {
 	border-color: var(--primary-blue);
+	/* Blue hover border */
 	background-color: var(--light-blue);
+	/* Light blue bg */
 	color: var(--primary-blue);
+	/* Blue text */
 	outline: none;
-	box-shadow: 0 2px 4px rgba(0, 86, 179, 0.1);
+	box-shadow: 0 2px 5px rgba(0, 86, 179, 0.1);
+	/* Blue shadow */
+	transform: translateY(-1px);
 }
 
-/* 标记当前激活主题的按钮 (需要 JS 配合添加 'active' 类) */
 .theme-switch-button.active {
 	background-color: var(--primary-blue);
 	color: var(--button-text);
 	border-color: var(--primary-blue);
-	font-weight: bold;
+	font-weight: 600;
 	cursor: default;
 	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-	transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+	transform: translateY(0);
 }
-
-/* 暗色模式激活按钮 */
-html[data-theme='dark'] .theme-switch-button.active {
-	background-color: #5dade2;
-	color: #111;
-	border-color: #5dade2;
-	font-weight: bold;
-	cursor: default;
-	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
-	transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
 
 .theme-switch-button.active:hover {
 	background-color: var(--primary-blue);
 	color: var(--button-text);
 	border-color: var(--primary-blue);
 	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-	outline: none;
 }
 
-/* 深色模式下，激活且悬停的按钮样式 */
+/* Dark Mode Active Button */
+html[data-theme='dark'] .theme-switch-button.active {
+	background-color: var(--primary-blue);
+	color: var(--button-text);
+	border-color: var(--primary-blue);
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
 html[data-theme='dark'] .theme-switch-button.active:hover {
-	background-color: #5dade2;
-	color: #111;
-	border-color: #5dade2;
-	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
-	outline: none;
+	background-color: var(--primary-blue);
+	color: var(--button-text);
+	border-color: var(--primary-blue);
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-/* 暗色模式下的按钮 */
+/* Dark Mode Buttons */
 html[data-theme='dark'] .theme-switch-button {
 	background-color: var(--background-white);
 	border-color: var(--border-color);
 	color: var(--text-dark);
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+	box-shadow: var(--card-shadow);
 }
 
-html[data-theme='dark'] .theme-switch-button:hover,
-html[data-theme='dark'] .theme-switch-button:focus {
+html[data-theme='dark'] .theme-switch-button:hover {
 	border-color: var(--primary-blue);
-	background-color: #3a3a3a;
+	/* Light blue border */
+	background-color: var(--light-blue);
+	/* Darker blue bg */
 	color: var(--primary-blue);
-	box-shadow: 0 2px 4px rgba(93, 173, 226, 0.15);
+	/* Light blue text */
+	box-shadow: 0 2px 5px rgba(93, 173, 226, 0.15);
+	/* Light blue shadow */
 }
 
+/* Prevent transition during theme switch */
+body.theming-in-progress .theme-switch-button {
+	transition: none !important;
+}
 
+/* --- 首页功能卡片 --- */
 .hub-container {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-	gap: 1.8em;
-	margin-bottom: 3em;
+	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+	gap: 2em;
+	margin-bottom: 3.5em;
 }
 
 .hub-card {
@@ -101,13 +106,14 @@ html[data-theme='dark'] .theme-switch-button:focus {
 	flex-direction: column;
 	align-items: center;
 	background-color: var(--background-white);
-	border-radius: 12px;
+	border-radius: var(--border-radius-large);
 	padding: 2em 1.5em;
 	text-align: center;
 	border: 1px solid var(--border-color);
+	/* Use border color as base */
 	box-shadow: var(--card-shadow);
-	transition: transform 0.25s ease-in-out,
-		box-shadow 0.25s ease-in-out,
+	transition: transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1),
+		box-shadow 0.25s cubic-bezier(0.25, 0.8, 0.25, 1),
 		border-color 0.3s ease,
 		background-color 0.3s ease;
 	color: var(--text-dark);
@@ -116,9 +122,11 @@ html[data-theme='dark'] .theme-switch-button:focus {
 
 .hub-card:hover,
 .hub-card:focus {
-	transform: translateY(-6px) scale(1.02);
+	transform: translateY(-6px);
 	box-shadow: var(--card-hover-shadow);
+	/* Blue hover shadow */
 	border-color: var(--primary-blue);
+	/* Blue hover border */
 	outline: none;
 	text-decoration: none;
 	color: var(--text-dark);
@@ -129,12 +137,14 @@ html[data-theme='dark'] .theme-switch-button:focus {
 .hub-card:hover .icon,
 .hub-card:focus .icon {
 	color: var(--primary-blue);
+	/* Blue for hover */
 	text-decoration: none;
 }
 
 .hub-card .icon {
-	font-size: 2.8em;
-	color: var(--link-color);
+	font-size: 2.6em;
+	color: var(--primary-blue);
+	/* Start blue */
 	margin-bottom: 0.6em;
 	display: block;
 	transition: color 0.25s ease-in-out;
@@ -142,66 +152,50 @@ html[data-theme='dark'] .theme-switch-button:focus {
 
 .hub-card h3 {
 	margin-top: 0;
-	margin-bottom: 0.6em;
-	font-size: 1.25em;
+	margin-bottom: 0;
+	font-size: 1.2em;
 	font-weight: 600;
-	color: var(--link-color);
+	color: var(--primary-blue);
+	/* Start blue */
 	transition: color 0.25s ease-in-out;
 }
 
-.hub-card p {
-	color: var(--text-light);
-	font-size: 0.9em;
-	line-height: 1.6;
-	flex-grow: 1;
-	text-decoration: none !important;
-}
-
+/* --- Media Queries for Index --- */
 @media (max-width: 768px) {
 	.hub-container {
-		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-		gap: 1.2em;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 1.5em;
 	}
 
 	.hub-card {
-		padding: 1.5em 1.2em;
+		padding: 1.8em 1.2em;
 	}
 
 	.theme-switcher-container {
-		margin-bottom: 2em;
+		margin-bottom: 2.5em;
 	}
 }
 
 @media (max-width: 480px) {
 	.hub-container {
 		grid-template-columns: 1fr;
-		/* 小屏幕下单列显示 */
-		gap: 1em;
+		gap: 1.2em;
 	}
 
 	.hub-card {
 		padding: 1.5em 1em;
-		/* 调整内边距 */
 	}
 
 	.hub-card .icon {
-		font-size: 2.2em;
+		font-size: 2.4em;
 	}
 
 	.hub-card h3 {
-		font-size: 1.15em;
-	}
-
-	.hub-card p {
-		font-size: 0.88em;
+		font-size: 1.1em;
 	}
 
 	.theme-switch-button {
-		padding: 0.5em 1em;
-		font-size: 0.85em;
+		padding: 0.5em 1.1em;
+		font-size: 0.88em;
 	}
-}
-
-body.theming-in-progress .theme-switch-button {
-	transition: none !important;
 }
